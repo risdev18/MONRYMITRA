@@ -49,12 +49,15 @@ export default function Paywall() {
         }
     };
 
-    const checkActivationStatus = () => {
-        refreshBusiness();
-        // Force a small delay to ensure state updates
+    const [isChecking, setIsChecking] = useState(false);
+
+    const checkActivationStatus = async () => {
+        setIsChecking(true);
+        await refreshBusiness();
+        // Create a seamless transition
         setTimeout(() => {
-            window.location.reload();
-        }, 100);
+            navigate('/');
+        }, 1000);
     };
 
     if (requestSent) {
@@ -69,9 +72,10 @@ export default function Paywall() {
                     <p className="text-slate-400 text-xs mt-2">Please contact support or wait for confirmation.</p>
                     <button
                         onClick={checkActivationStatus}
-                        className="mt-8 px-6 py-3 bg-indigo-600 text-white rounded-xl font-black text-sm hover:bg-indigo-700 transition"
+                        disabled={isChecking}
+                        className="mt-8 px-6 py-3 bg-indigo-600 text-white rounded-xl font-black text-sm hover:bg-indigo-700 transition disabled:opacity-50"
                     >
-                        Check Activation Status
+                        {isChecking ? 'Checking...' : 'Check Activation Status'}
                     </button>
 
                     <button

@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import axios from 'axios';
 import { db, auth } from './firebase';
 import {
@@ -14,8 +15,9 @@ import {
     Timestamp
 } from 'firebase/firestore';
 
-const API_URL = 'http://localhost:3000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
+// Note: This axios instance is largely unused as we use Firebase SDK directly.
 const api = axios.create({
     baseURL: API_URL,
     headers: { 'Content-Type': 'application/json' }

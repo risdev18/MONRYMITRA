@@ -73,14 +73,14 @@ export default function Paywall() {
                     <button
                         onClick={checkActivationStatus}
                         disabled={isChecking}
-                        className="mt-8 px-6 py-3 bg-indigo-600 text-white rounded-xl font-black text-sm hover:bg-indigo-700 transition disabled:opacity-50"
+                        className="mt-8 px-6 py-3 bg-emerald-600 text-white rounded-xl font-black text-sm hover:bg-emerald-700 transition disabled:opacity-50"
                     >
                         {isChecking ? 'Checking...' : 'Check Activation Status'}
                     </button>
 
                     <button
                         onClick={() => navigate('/admin-login')}
-                        className="block w-full mt-10 text-[10px] uppercase font-black text-slate-300 hover:text-indigo-500"
+                        className="block w-full mt-10 text-[10px] uppercase font-black text-slate-300 hover:text-emerald-500"
                     >
                         Admin: Verify Payment
                     </button>
@@ -154,7 +154,7 @@ export default function Paywall() {
                             <input
                                 type="text"
                                 placeholder="Coupon Code"
-                                className="flex-1 px-4 py-3 bg-slate-50 rounded-xl font-bold border border-slate-100 focus:ring-2 focus:ring-indigo-500 text-sm outline-none placeholder:text-slate-300"
+                                className="flex-1 px-4 py-3 bg-slate-50 rounded-xl font-bold border border-slate-100 focus:ring-2 focus:ring-emerald-500 text-sm outline-none placeholder:text-slate-300"
                                 value={coupon}
                                 onChange={e => setCoupon(e.target.value)}
                             />
@@ -194,7 +194,7 @@ export default function Paywall() {
 
             <button
                 onClick={() => navigate('/admin-login')}
-                className="mt-8 text-slate-400 font-bold text-xs hover:text-indigo-600 transition"
+                className="mt-8 text-slate-400 font-bold text-xs hover:text-emerald-600 transition"
             >
                 ADMIN ACCESS
             </button>

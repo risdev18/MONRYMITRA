@@ -118,7 +118,7 @@ export default function SetupBusinessPage() {
                         <button
                             onClick={() => setStep(2)}
                             disabled={!formData.businessName || !formData.phone}
-                            className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-200 flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 transition-all uppercase tracking-widest text-sm"
+                            className="w-full py-5 bg-emerald-600 text-white rounded-2xl font-black shadow-xl shadow-emerald-100 flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 transition-all uppercase tracking-widest text-sm"
                         >
                             Next Step <ChevronRight className="w-5 h-5" />
                         </button>
@@ -156,7 +156,7 @@ export default function SetupBusinessPage() {
                             <button
                                 onClick={handleSubmit}
                                 disabled={!formData.businessType || loading}
-                                className="flex-[2] py-5 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-200 active:scale-95 disabled:opacity-50 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2"
+                                className="flex-[2] py-5 bg-emerald-600 text-white rounded-2xl font-black shadow-xl shadow-emerald-100 active:scale-95 disabled:opacity-50 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2"
                             >
                                 {loading ? 'Setting up...' : 'Setup My Business'} <CheckCircle2 className="w-5 h-5" />
                             </button>

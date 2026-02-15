@@ -168,7 +168,7 @@ export default function AddCustomer() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-5 rounded-2xl font-black text-white transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95 ${loading ? 'bg-slate-300' : 'bg-slate-900 hover:bg-slate-800 shadow-slate-200'}`}
+                            className={`w-full py-5 rounded-2xl font-black text-white transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95 ${loading ? 'bg-slate-300' : 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-100'}`}
                         >
                             {loading ? (
                                 'Processing...'

@@ -122,19 +122,19 @@ export default function ExamPaper() {
                         <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 border-dashed border-2 flex flex-col items-center py-16 relative">
                             {(isScanning || isDeepScanning) ? (
                                 <div className="flex flex-col items-center">
-                                    <div className={`w-10 h-10 border-4 ${isDeepScanning ? 'border-amber-500' : 'border-indigo-500'} border-t-transparent rounded-full animate-spin mb-4`} />
-                                    <p className={`font-bold ${isDeepScanning ? 'text-amber-600' : 'text-indigo-600'}`}>
+                                    <div className={`w-10 h-10 border-4 ${isDeepScanning ? 'border-amber-500' : 'border-emerald-500'} border-t-transparent rounded-full animate-spin mb-4`} />
+                                    <p className={`font-bold ${isDeepScanning ? 'text-amber-600' : 'text-emerald-600'}`}>
                                         {isDeepScanning ? 'Deep Scanning Full Syllabus...' : 'AI Scanning Study Material...'}
                                     </p>
                                     <p className="text-[10px] text-slate-400 mt-1 uppercase font-black">Validating Syllabus Content</p>
                                 </div>
                             ) : (
                                 <>
-                                    <Upload className="w-12 h-12 text-indigo-500 mb-4" />
+                                    <Upload className="w-12 h-12 text-emerald-500 mb-4" />
                                     <p className="font-bold text-slate-800">{fileSelected || "Drop Textbook PDF or Scan"}</p>
                                     <p className="text-xs text-slate-400 mt-1">AI will detect chapters automatically</p>
                                     <div className="flex flex-col gap-3 mt-8 w-full max-w-xs">
-                                        <label className="w-full px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold text-sm hover:bg-indigo-700 transition cursor-pointer flex items-center justify-center gap-2">
+                                        <label className="w-full px-6 py-3 bg-emerald-600 text-white rounded-xl font-bold text-sm hover:bg-emerald-700 transition cursor-pointer flex items-center justify-center gap-2">
                                             <Upload className="w-4 h-4" />
                                             {fileSelected ? 'Change Textbook' : 'Select Textbook'}
                                             <input type="file" className="hidden" onChange={(e) => handleFileUpload(e, false)} accept=".pdf,.doc,.docx,image/*" />

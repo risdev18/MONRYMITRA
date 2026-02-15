@@ -48,20 +48,23 @@ export default function Attendance() {
     return (
         <div className="min-h-screen bg-[#F7F9FC] flex print:bg-white">
             {/* Sidebar - Hide on print */}
-            <aside className="w-64 bg-slate-900 text-white hidden md:block fixed h-full shadow-2xl print:hidden">
-                <div className="p-8">
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-                        <div className="bg-emerald-600 p-2 rounded-lg">
+            <aside className="w-64 bg-slate-900 text-white hidden md:block fixed h-full shadow-2xl print:hidden relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                    <div className="absolute top-0 left-0 w-full h-32 bg-emerald-500 blur-[80px]" />
+                </div>
+                <div className="p-8 relative z-10">
+                    <h1 className="text-2xl font-black text-white flex items-center gap-3 cursor-pointer tracking-tight" onClick={() => navigate('/')}>
+                        <div className="bg-emerald-600 p-2 rounded-xl">
                             <CreditCard className="w-5 h-5 text-white" />
                         </div>
                         MoneyMitra
                     </h1>
                 </div>
-                <nav className="mt-8 px-4">
-                    <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition group">
+                <nav className="mt-8 px-4 relative z-10">
+                    <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition group font-bold">
                         <Users className="w-5 h-5 group-hover:text-emerald-400" /> Dashboard
                     </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 bg-white/10 text-emerald-400 rounded-xl font-semibold border-l-4 border-emerald-500 mt-2">
+                    <button className="w-full flex items-center gap-3 px-4 py-3 bg-white/5 text-emerald-400 rounded-xl font-black border-r-4 border-emerald-500 mt-2 shadow-inner">
                         <Calendar className="w-5 h-5" /> Attendance
                     </button>
                 </nav>
@@ -148,10 +151,10 @@ export default function Attendance() {
                                 {filtered.map((cust) => {
                                     const status = cust[`status_${selectedDate}`] || 'NONE';
                                     return (
-                                        <tr key={cust._id} className="hover:bg-indigo-50/30 transition group">
+                                        <tr key={cust._id} className="hover:bg-emerald-50/30 transition group">
                                             <td className="px-8 py-6">
                                                 <div className="flex items-center gap-4">
-                                                    <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center font-black text-indigo-600 shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition">
+                                                    <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center font-black text-emerald-600 shadow-sm group-hover:bg-slate-900 group-hover:text-white transition uppercase">
                                                         {cust.name[0]}
                                                     </div>
                                                     <div>

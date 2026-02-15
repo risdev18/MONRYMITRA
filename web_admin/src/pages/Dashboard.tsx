@@ -105,38 +105,41 @@ export default function Dashboard() {
 
     return (
         <div className="min-h-screen bg-[#F7F9FC] flex">
-            {/* Sidebar */}
-            <aside className="w-64 bg-slate-900 text-white hidden md:block fixed h-full shadow-2xl">
-                <div className="p-8">
-                    <h1 className="text-2xl font-bold text-white flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-                        <div className="bg-emerald-600 p-2 rounded-lg">
+            {/* Sidebar with softer aesthetic */}
+            <aside className="w-64 bg-slate-900 text-white hidden md:block fixed h-full shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                    <div className="absolute top-0 left-0 w-full h-32 bg-emerald-500 blur-[80px]" />
+                </div>
+                <div className="p-8 relative z-10">
+                    <h1 className="text-2xl font-black text-white flex items-center gap-3 cursor-pointer tracking-tight" onClick={() => navigate('/')}>
+                        <div className="bg-emerald-600 p-2 rounded-xl">
                             <CreditCard className="w-5 h-5 text-white" />
                         </div>
                         MoneyMitra
                     </h1>
-                    <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest mt-2 opacity-80">Paise Vasooli Assistant</p>
+                    <p className="text-[10px] text-emerald-400 font-black uppercase tracking-[0.2em] mt-2 opacity-80">Vasooli Assistant</p>
                 </div>
-                <nav className="mt-8 px-4">
-                    <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-4 py-3 bg-emerald-600/20 text-emerald-400 rounded-xl font-semibold border-l-4 border-emerald-500">
+                <nav className="mt-8 px-4 relative z-10">
+                    <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-4 py-3 bg-white/5 text-emerald-400 rounded-xl font-black border-r-4 border-emerald-500 shadow-inner overflow-hidden">
                         <Users className="w-5 h-5" /> Dashboard
                     </button>
-                    <button onClick={() => navigate('/attendance')} className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition mt-2">
-                        <Calendar className="w-5 h-5" /> Attendance
+                    <button onClick={() => navigate('/attendance')} className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition mt-2 font-bold group">
+                        <Calendar className="w-5 h-5 group-hover:text-emerald-400" /> Attendance
                     </button>
                 </nav>
 
-                <div className="absolute bottom-8 left-0 px-6 w-full">
+                <div className="absolute bottom-8 left-0 px-6 w-full relative z-10">
                     <button
                         onClick={startVoiceCommand}
-                        className={`w-full bg-slate-800/50 p-4 rounded-2xl border border-slate-700 text-left transition hover:bg-slate-800 ${isListening ? 'ring-2 ring-rose-500' : ''}`}
+                        className={`w-full bg-slate-800/50 p-5 rounded-[2rem] border border-slate-700 text-left transition hover:bg-slate-800 group ${isListening ? 'ring-2 ring-rose-500' : ''}`}
                     >
-                        <p className="text-xs text-slate-400">Pro Feature</p>
-                        <p className="text-sm font-bold text-white mt-1 flex items-center justify-between">
-                            Voice First Entry
+                        <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">PRO ENGINE</p>
+                        <p className="text-sm font-black text-white mt-1 flex items-center justify-between tracking-tight">
+                            Voice Entry
                             <Mic className={`w-4 h-4 ${isListening ? 'text-rose-500 animate-pulse' : 'text-emerald-400'}`} />
                         </p>
-                        <div className="flex items-center gap-2 mt-2 text-[10px] text-emerald-400">
-                            {isListening ? "Listening..." : "Click to Try Demo"}
+                        <div className="flex items-center gap-2 mt-2 text-[10px] text-emerald-400 font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                            {isListening ? "Listening..." : "Tap to Speak"}
                         </div>
                     </button>
                 </div>

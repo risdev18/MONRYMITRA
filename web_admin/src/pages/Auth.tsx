@@ -52,7 +52,7 @@ export default function AuthPage() {
                             <input
                                 type="email"
                                 placeholder="you@example.com"
-                                className="w-full pl-12 pr-6 py-4 bg-[#F7F9FC] border border-slate-100 rounded-2xl text-slate-900 font-bold placeholder:text-slate-300 focus:ring-2 focus:ring-slate-900 outline-none transition"
+                                className="w-full pl-12 pr-6 py-4 bg-[#F7F9FC] border border-slate-100 rounded-2xl text-slate-900 font-bold placeholder:text-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none transition"
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
                             />
@@ -66,7 +66,7 @@ export default function AuthPage() {
                             <input
                                 type="password"
                                 placeholder="••••••••"
-                                className="w-full pl-12 pr-6 py-4 bg-[#F7F9FC] border border-slate-100 rounded-2xl text-slate-900 font-bold placeholder:text-slate-300 focus:ring-2 focus:ring-slate-900 outline-none transition"
+                                className="w-full pl-12 pr-6 py-4 bg-[#F7F9FC] border border-slate-100 rounded-2xl text-slate-900 font-bold placeholder:text-slate-300 focus:ring-2 focus:ring-emerald-500 outline-none transition"
                                 value={password}
                                 onChange={e => setPassword(e.target.value)}
                             />
@@ -76,7 +76,7 @@ export default function AuthPage() {
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-200 flex items-center justify-center gap-3 active:scale-95 transition-all uppercase tracking-widest text-sm disabled:opacity-50 hover:bg-slate-800"
+                        className="w-full py-5 bg-emerald-600 text-white rounded-2xl font-black shadow-xl shadow-emerald-100 flex items-center justify-center gap-3 active:scale-95 transition-all uppercase tracking-widest text-sm disabled:opacity-50 hover:bg-emerald-700"
                     >
                         {isLoading ? 'Processing...' : (
                             <>

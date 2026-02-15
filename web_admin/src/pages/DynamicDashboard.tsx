@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     MessageCircle, Settings, UserPlus, FileText,
     Phone, Send, CreditCard, TrendingUp,
-    Search, Mic, Users, ArrowUpRight, Trash2, X, ShieldCheck, Zap
+    Search, Mic, Users, ArrowUpRight, Trash2, X, ShieldCheck, Zap, Plus
 } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 import { CustomerAPI } from '../api';
@@ -119,37 +119,46 @@ export default function DynamicDashboard() {
     return (
         <div className="min-h-screen bg-[#F7F9FC] pb-32 font-sans text-slate-900">
             {/* ... (Header section remains mostly same but calls the new clearAllData) ... */}
-            <header className="bg-slate-900 text-white p-8 rounded-b-[2.5rem] shadow-xl relative overflow-hidden">
-                <div className="relative z-10 max-w-5xl mx-auto">
+            {/* Header section with reduced height and softer gradient */}
+            <header className="bg-gradient-to-br from-slate-900 to-slate-800 text-white pt-10 pb-12 rounded-b-[4rem] shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                    <div className="absolute -top-24 -left-24 w-96 h-96 bg-emerald-500 rounded-full blur-[100px]" />
+                    <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-emerald-500 rounded-full blur-[100px]" />
+                </div>
+                <div className="relative z-10 max-w-5xl mx-auto px-8">
                     <div className="flex justify-between items-center mb-10">
                         <div>
-                            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 italic">Workstation</p>
-                            <h1 className="text-2xl font-black tracking-tight mt-1 text-white">{business.businessName.toUpperCase()}</h1>
+                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-emerald-400/80 italic">Operations Console</p>
+                            <h1 className="text-3xl font-black tracking-tighter mt-1 text-white">{business.businessName}</h1>
                         </div>
-                        <div className="flex gap-2">
-                            <button onClick={clearAllData} className="p-3 bg-white/10 rounded-2xl hover:bg-rose-500 border border-white/10 group transition-all" title="Delete All Members">
+                        <div className="flex gap-3">
+                            <button onClick={clearAllData} className="p-3.5 bg-white/5 rounded-2xl hover:bg-rose-500 border border-white/10 group transition-all active:scale-95" title="Reset All">
                                 <Trash2 className="w-5 h-5 text-rose-400 group-hover:text-white" />
                             </button>
-                            <button onClick={() => alert("Settings coming soon!")} className="p-3 bg-white/10 rounded-2xl hover:bg-slate-700 transition border border-white/10">
+                            <button onClick={() => alert("Settings coming soon!")} className="p-3.5 bg-white/5 rounded-2xl hover:bg-slate-700 transition border border-white/10 active:scale-95">
                                 <Settings className="w-5 h-5 text-slate-300" />
                             </button>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
-                        <div className="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+                        <div className="bg-white/5 p-6 rounded-[2.5rem] border border-white/10 backdrop-blur-md">
                             <div className="flex justify-between mb-2">
-                                <p className="text-[10px] font-black uppercase text-slate-400">Pending</p>
-                                <ArrowUpRight className="w-4 h-4 text-emerald-400" />
+                                <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Total Dues</p>
+                                <div className="bg-emerald-500/20 p-1 rounded-md">
+                                    <ArrowUpRight className="w-4 h-4 text-emerald-400" />
+                                </div>
                             </div>
-                            <p className="text-3xl font-black">₹{totalPending.toLocaleString('en-IN')}</p>
+                            <p className="text-4xl font-black tracking-tight text-white">₹{totalPending.toLocaleString('en-IN')}</p>
                         </div>
-                        <div className="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
+                        <div className="bg-white/5 p-6 rounded-[2.5rem] border border-white/10 backdrop-blur-md">
                             <div className="flex justify-between mb-2">
-                                <p className="text-[10px] font-black uppercase text-slate-400">Portfolio</p>
-                                <Users className="w-4 h-4 text-emerald-400" />
+                                <p className="text-[10px] font-black uppercase text-slate-400 tracking-widest">Active Members</p>
+                                <div className="bg-emerald-500/20 p-1 rounded-md">
+                                    <Users className="w-4 h-4 text-emerald-400" />
+                                </div>
                             </div>
-                            <p className="text-3xl font-black">{activeCount}</p>
+                            <p className="text-4xl font-black tracking-tight text-white">{activeCount}</p>
                         </div>
                     </div>
                 </div>
@@ -204,22 +213,22 @@ export default function DynamicDashboard() {
 
             <main className="max-w-5xl mx-auto p-6 -mt-4 relative z-20">
                 {/* Search & Mic Bar */}
-                <div className="relative mb-12 mt-4">
-                    <div className="bg-white rounded-[1.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 p-2 flex items-center">
-                        <Search className="ml-5 text-slate-400 w-5 h-5" />
+                <div className="relative mb-16 mt-6">
+                    <div className="bg-white rounded-[1.75rem] shadow-2xl shadow-slate-200/50 border border-slate-100 p-2.5 flex items-center group focus-within:ring-2 focus-within:ring-emerald-500 transition-all">
+                        <Search className="ml-5 text-slate-300 w-5 h-5 group-focus-within:text-emerald-500 transition-colors" />
                         <input
                             type="text"
-                            placeholder="Find member..."
-                            className="flex-1 px-4 py-4 bg-transparent border-none focus:ring-0 font-bold text-slate-800 placeholder:text-slate-300"
+                            placeholder="Find or add member..."
+                            className="flex-1 px-4 py-4 bg-transparent border-none focus:ring-0 font-bold text-slate-800 placeholder:text-slate-300 text-lg"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                         <button
                             onClick={startVoiceCommand}
-                            className={`p-4 rounded-[1.25rem] transition-all flex items-center gap-2 ${isListening ? 'bg-rose-600 text-white shadow-lg animate-pulse' : 'bg-slate-50 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50'}`}
+                            className={`px-6 py-4 rounded-[1.25rem] transition-all flex items-center gap-3 active:scale-95 ${isListening ? 'bg-rose-600 text-white shadow-lg animate-pulse' : 'bg-emerald-600 text-white shadow-lg shadow-emerald-100'}`}
                         >
                             <Mic className="w-5 h-5" />
-                            <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">{isListening ? 'Listening' : 'Voice Add'}</span>
+                            <span className="text-[11px] font-black uppercase tracking-widest hidden sm:inline">{isListening ? 'Listening' : 'Voice Entry'}</span>
                         </button>
                     </div>
                     {transcript && (
@@ -315,38 +324,40 @@ export default function DynamicDashboard() {
                         </div>
                     </div>
                 ) : (
-                    <div className="mb-16 text-center py-10 bg-white rounded-3xl border border-dashed border-slate-200 shadow-sm">
-                        <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <UserPlus className="w-8 h-8 text-slate-300" />
+                    <div className="mb-20 text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-100 shadow-sm px-8">
+                        <div className="w-24 h-24 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
+                            <UserPlus className="w-10 h-10 text-emerald-600" />
                         </div>
-                        <h3 className="text-lg font-black text-slate-800">No Members Yet</h3>
-                        <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mt-1 mb-6">Add your first member to start tracking</p>
-                        <button onClick={() => navigate('/add-customer')} className="bg-slate-900 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-800 transition shadow-lg shadow-slate-100">
-                            Add Member
+                        <h3 className="text-2xl font-black text-slate-900 tracking-tight">Empty Register</h3>
+                        <p className="text-slate-500 text-sm font-bold uppercase tracking-widest mt-2 mb-8 italic">Add your first member to start collecting payments.</p>
+                        <button
+                            onClick={() => navigate('/add-customer')}
+                            className="bg-emerald-600 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-emerald-700 transition-all shadow-xl shadow-emerald-100 active:scale-95 flex items-center gap-3 mx-auto"
+                        >
+                            <Plus className="w-6 h-6" /> Add New Member
                         </button>
                     </div>
                 )}
             </main>
 
-            {/* Bottom Bar - Compact */}
-            <div className="fixed bottom-6 left-0 w-full px-6 flex justify-center z-50 pointer-events-none">
-                <div className="bg-slate-900/90 border border-slate-700/50 backdrop-blur-md text-white rounded-full p-1.5 flex gap-2 shadow-2xl pointer-events-auto items-center">
-                    <button
-                        onClick={() => window.open('https://wa.me/918468943268', '_blank')}
-                        className="flex items-center gap-2 px-6 py-3 hover:bg-white/10 rounded-full transition"
-                    >
-                        <MessageCircle className="w-4 h-4 text-emerald-400" />
-                        <span className="text-[9px] font-black uppercase tracking-widest">Help</span>
-                    </button>
-                    <div className="w-[1px] bg-slate-700 h-4"></div>
-                    <button
-                        onClick={() => window.location.href = 'tel:8468943268'}
-                        className="flex items-center gap-2 px-6 py-3 hover:bg-white/10 rounded-full transition"
-                    >
-                        <Phone className="w-4 h-4 text-emerald-400" />
-                        <span className="text-[9px] font-black uppercase tracking-widest">Call</span>
-                    </button>
-                </div>
+            {/* Bottom Floating Bar - Sleeker & Circular-inspired */}
+            <div className="fixed bottom-8 right-8 z-50 flex flex-col gap-3">
+                <button
+                    onClick={() => window.open('https://wa.me/918468943268', '_blank')}
+                    className="w-14 h-14 bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-emerald-700 transition-all hover:scale-110 active:scale-90 group relative"
+                    title="WhatsApp Support"
+                >
+                    <MessageCircle className="w-6 h-6" />
+                    <span className="absolute right-full mr-3 bg-slate-900 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">WhatsApp Help</span>
+                </button>
+                <button
+                    onClick={() => window.location.href = 'tel:8468943268'}
+                    className="w-14 h-14 bg-slate-900 text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-slate-800 transition-all hover:scale-110 active:scale-90 group relative"
+                    title="Call Support"
+                >
+                    <Phone className="w-5 h-5" />
+                    <span className="absolute right-full mr-3 bg-slate-900 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Call Now</span>
+                </button>
             </div>
         </div>
     );
@@ -356,14 +367,14 @@ function QuickAction({ label, sub, icon: Icon, onClick }: any) {
     return (
         <button
             onClick={onClick}
-            className={`bg-white text-slate-900 border-slate-100 p-6 rounded-[2rem] text-left flex flex-col justify-between h-44 shadow-sm hover:shadow-xl transition-all border group`}
+            className={`bg-white text-slate-900 border-slate-100 p-6 rounded-[2.5rem] text-left flex flex-col justify-between h-52 shadow-sm hover:shadow-2xl transition-all border group hover:-translate-y-1`}
         >
-            <div className={`bg-slate-50 p-4 rounded-2xl w-fit group-hover:scale-110 transition-transform group-hover:bg-emerald-50`}>
-                <Icon className="w-6 h-6 text-slate-800 group-hover:text-emerald-600 transition-colors" />
+            <div className={`bg-emerald-50 p-4 rounded-2xl w-fit group-hover:scale-110 transition-transform group-hover:bg-emerald-600`}>
+                <Icon className="w-6 h-6 text-emerald-600 group-hover:text-white transition-colors" />
             </div>
             <div>
-                <p className="text-[9px] font-black uppercase opacity-50 mb-1 italic tracking-widest">{sub}</p>
-                <p className="font-black text-xl leading-none tracking-tighter text-slate-800">{label}</p>
+                <p className="text-[10px] font-black uppercase opacity-40 mb-1 italic tracking-[0.2em]">{sub}</p>
+                <p className="font-black text-2xl leading-none tracking-tighter text-slate-900">{label}</p>
             </div>
         </button>
     );

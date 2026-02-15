@@ -58,7 +58,59 @@ export default function DynamicDashboard() {
         }
     };
 
-    // ... (rest of the file) 
+    const speak = (text: string) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-IN';
+        window.speechSynthesis.speak(utterance);
+    };
+
+    const startVoiceCommand = () => {
+        const recognition = new ((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition)();
+        recognition.lang = 'en-IN';
+        recognition.continuous = false;
+
+        recognition.onstart = () => {
+            setIsListening(true);
+            setTranscript('Listening...');
+        };
+
+        recognition.onend = () => {
+            setIsListening(false);
+        };
+
+        recognition.onresult = async (event: any) => {
+            const result = event.results[0][0].transcript.toLowerCase();
+            setTranscript(result);
+
+            if (result.includes('add')) {
+                const words = result.split(' ');
+                const addIndex = words.indexOf('add');
+                const name = words[addIndex + 1];
+                const amount = words.find((w: string, i: number) => i > addIndex && !isNaN(Number(w)));
+
+                if (name) {
+                    const cleanName = name.charAt(0).toUpperCase() + name.slice(1);
+                    const cleanAmount = Number(amount) || 0;
+
+                    await CustomerAPI.create({
+                        name: cleanName,
+                        phone: '0000000000',
+                        category: business.businessType || 'OTHER',
+                        amountDue: cleanAmount,
+                    });
+
+                    speak(`Ok, added ${cleanName} with ${cleanAmount} rupees.`);
+                    loadStats();
+                    setTimeout(() => setTranscript(''), 3000);
+                }
+            } else {
+                speak("I didn't catch that. Say Add followed by a name.");
+            }
+        };
+        recognition.start();
+    };
+
+    if (!business) return <div className="min-h-screen bg-white flex items-center justify-center font-black text-slate-400">⚡ LOADING...</div>;
 
     const totalPending = customers.reduce((sum, c) => sum + (Number(c.amountDue) || 0), 0);
     const activeCount = customers.length;

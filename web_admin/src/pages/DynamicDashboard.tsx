@@ -117,34 +117,34 @@ export default function DynamicDashboard() {
     const filtered = customers.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 5);
 
     return (
-        <div className="min-h-screen bg-[#F1F5F9] pb-32 font-sans text-slate-900">
+        <div className="min-h-screen bg-[#F7F9FC] pb-32 font-sans text-slate-900">
             {/* ... (Header section remains mostly same but calls the new clearAllData) ... */}
             <header className="bg-slate-900 text-white p-8 rounded-b-[2.5rem] shadow-xl relative overflow-hidden">
                 <div className="relative z-10 max-w-5xl mx-auto">
                     <div className="flex justify-between items-center mb-10">
                         <div>
-                            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-500 italic">Workstation</p>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-slate-400 italic">Workstation</p>
                             <h1 className="text-2xl font-black tracking-tight mt-1 text-white">{business.businessName.toUpperCase()}</h1>
                         </div>
                         <div className="flex gap-2">
-                            <button onClick={clearAllData} className="p-3 bg-rose-500/10 rounded-2xl hover:bg-rose-500 border border-rose-500/30 group transition-all" title="Delete All Members">
+                            <button onClick={clearAllData} className="p-3 bg-white/10 rounded-2xl hover:bg-rose-500 border border-white/10 group transition-all" title="Delete All Members">
                                 <Trash2 className="w-5 h-5 text-rose-400 group-hover:text-white" />
                             </button>
-                            <button className="p-3 bg-slate-800 rounded-2xl hover:bg-slate-700 transition border border-slate-700">
+                            <button className="p-3 bg-white/10 rounded-2xl hover:bg-slate-700 transition border border-white/10">
                                 <Settings className="w-5 h-5 text-slate-300" />
                             </button>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
-                        <div className="bg-slate-800/40 p-6 rounded-3xl border border-white/5 backdrop-blur-md">
+                        <div className="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
                             <div className="flex justify-between mb-2">
                                 <p className="text-[10px] font-black uppercase text-slate-400">Pending</p>
                                 <ArrowUpRight className="w-4 h-4 text-emerald-400" />
                             </div>
                             <p className="text-3xl font-black">₹{totalPending.toLocaleString('en-IN')}</p>
                         </div>
-                        <div className="bg-slate-800/40 p-6 rounded-3xl border border-white/5 backdrop-blur-md">
+                        <div className="bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-sm">
                             <div className="flex justify-between mb-2">
                                 <p className="text-[10px] font-black uppercase text-slate-400">Portfolio</p>
                                 <Users className="w-4 h-4 text-indigo-400" />
@@ -155,22 +155,22 @@ export default function DynamicDashboard() {
                 </div>
             </header>
 
-            {/* Trial / Subscription Banner Logic (Already verified) */}
+            {/* Trial / Subscription Banner Logic */}
             <div className="max-w-5xl mx-auto px-6 mt-4">
                 {business.paymentStatus === 'TRIAL' && (
-                    <div className="bg-indigo-600/10 border border-indigo-600/20 p-4 rounded-2xl flex items-center justify-between backdrop-blur-sm">
+                    <div className="bg-white border border-indigo-100 p-4 rounded-2xl flex items-center justify-between shadow-sm">
                         <div className="flex items-center gap-3">
-                            <div className="bg-indigo-600 p-2 rounded-lg">
-                                <Zap className="w-4 h-4 text-white" />
+                            <div className="bg-indigo-50 p-2 rounded-lg">
+                                <Zap className="w-4 h-4 text-indigo-600" />
                             </div>
                             <div>
                                 <p className="text-xs font-black text-indigo-900 uppercase">3-Day Free Trial Active</p>
-                                <p className="text-[10px] text-indigo-500 font-bold">Unlock unlimited features forever.</p>
+                                <p className="text-[10px] text-slate-500 font-bold">Unlock unlimited features forever.</p>
                             </div>
                         </div>
                         <button
                             onClick={() => navigate('/paywall')}
-                            className="bg-indigo-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition active:scale-95"
+                            className="bg-indigo-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition active:scale-95 shadow-lg shadow-indigo-200"
                         >
                             Pay Now
                         </button>
@@ -178,72 +178,70 @@ export default function DynamicDashboard() {
                 )}
 
                 {business.paymentStatus === 'PENDING_APPROVAL' && (
-                    <div className="bg-amber-500/10 border border-amber-500/20 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-sm">
-                        <div className="bg-amber-500 p-2 rounded-lg">
-                            <ShieldCheck className="w-4 h-4 text-white" />
+                    <div className="bg-white border border-amber-100 p-4 rounded-2xl flex items-center gap-3 shadow-sm">
+                        <div className="bg-amber-50 p-2 rounded-lg">
+                            <ShieldCheck className="w-4 h-4 text-amber-600" />
                         </div>
                         <div>
-                            <p className="text-xs font-black text-amber-800 uppercase">Activation Pending</p>
-                            <p className="text-[10px] text-amber-600 font-bold">Admin is reviewing your payment.</p>
+                            <p className="text-xs font-black text-amber-900 uppercase">Activation Pending</p>
+                            <p className="text-[10px] text-slate-500 font-bold">Admin is reviewing your payment.</p>
                         </div>
                     </div>
                 )}
 
                 {business.paymentStatus === 'PAID' && (
-                    <div className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-sm">
-                        <div className="bg-emerald-500 p-2 rounded-lg">
-                            <ShieldCheck className="w-4 h-4 text-white" />
+                    <div className="bg-white border border-emerald-100 p-4 rounded-2xl flex items-center gap-3 shadow-sm">
+                        <div className="bg-emerald-50 p-2 rounded-lg">
+                            <ShieldCheck className="w-4 h-4 text-emerald-600" />
                         </div>
                         <div>
-                            <p className="text-xs font-black text-emerald-800 uppercase">Premium Plan Active</p>
-                            <p className="text-[10px] text-emerald-600 font-bold">All features unlocked.</p>
+                            <p className="text-xs font-black text-emerald-900 uppercase">Premium Plan Active</p>
+                            <p className="text-[10px] text-slate-500 font-bold">All features unlocked.</p>
                         </div>
                     </div>
                 )}
             </div>
 
             <main className="max-w-5xl mx-auto p-6 -mt-4 relative z-20">
-                {/* Search & Mic Bar (Unchanged) */}
-                <div className="relative mb-12">
-                    <div className="bg-white rounded-[1.5rem] shadow-2xl shadow-slate-200 border border-slate-100 p-2 flex items-center">
-                        <Search className="ml-5 text-slate-300 w-5 h-5" />
+                {/* Search & Mic Bar */}
+                <div className="relative mb-12 mt-4">
+                    <div className="bg-white rounded-[1.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 p-2 flex items-center">
+                        <Search className="ml-5 text-slate-400 w-5 h-5" />
                         <input
                             type="text"
-                            placeholder="Find entry..."
-                            className="flex-1 px-4 py-4 bg-transparent border-none focus:ring-0 font-bold"
+                            placeholder="Find member..."
+                            className="flex-1 px-4 py-4 bg-transparent border-none focus:ring-0 font-bold text-slate-800 placeholder:text-slate-300"
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                         <button
                             onClick={startVoiceCommand}
-                            className={`p-4 rounded-[1.25rem] transition-all flex items-center gap-2 ${isListening ? 'bg-rose-600 text-white shadow-lg animate-pulse' : 'bg-slate-50 text-slate-400 hover:text-indigo-600'}`}
+                            className={`p-4 rounded-[1.25rem] transition-all flex items-center gap-2 ${isListening ? 'bg-rose-600 text-white shadow-lg animate-pulse' : 'bg-slate-50 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50'}`}
                         >
                             <Mic className="w-5 h-5" />
                             <span className="text-[10px] font-black uppercase tracking-widest hidden sm :inline">{isListening ? 'Listening' : 'Voice Add'}</span>
                         </button>
                     </div>
                     {transcript && (
-                        <div className="absolute top-full left-0 w-full mt-3 bg-slate-900 text-white p-4 rounded-2xl text-xs font-black flex justify-between items-center animate-in slide-in-from-top-2 border border-slate-700 shadow-2xl">
+                        <div className="absolute top-full left-0 w-full mt-3 bg-slate-800 text-white p-4 rounded-2xl text-xs font-black flex justify-between items-center animate-in slide-in-from-top-2 border border-slate-700 shadow-2xl z-30">
                             <span className="italic truncate pr-4">"{transcript}"</span>
                             <X className="w-4 h-4 text-slate-400 cursor-pointer" onClick={() => setTranscript('')} />
                         </div>
                     )}
                 </div>
 
-                {/* Grid (Unchanged) */}
+                {/* Grid */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-16">
                     <QuickAction
                         label="New Member"
                         sub="Register"
                         icon={UserPlus}
-                        dark={true}
                         onClick={() => navigate('/add-customer')}
                     />
                     <QuickAction
                         label="Collect Fees"
                         sub="Register"
                         icon={CreditCard}
-                        dark={true}
                         onClick={() => navigate('/attendance')}
                     />
                     <QuickAction
@@ -280,13 +278,13 @@ export default function DynamicDashboard() {
                     <div className="mb-16">
                         <header className="flex justify-between items-center mb-6 px-2">
                             <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 italic">Recent Members</h3>
-                            <button onClick={() => navigate('/attendance')} className="text-[10px] font-black text-indigo-600 uppercase">View Register</button>
+                            <button onClick={() => navigate('/attendance')} className="text-[10px] font-black text-indigo-600 uppercase hover:bg-indigo-50 px-3 py-1 rounded-lg transition">View Register</button>
                         </header>
                         <div className="space-y-4">
                             {filtered.map(c => (
                                 <div key={c._id} onClick={() => navigate(`/customer/${c._id}`)} className="bg-white p-5 rounded-3xl border border-slate-100 flex items-center justify-between hover:border-indigo-200 transition-all cursor-pointer group shadow-sm hover:shadow-md relative">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center font-black group-hover:bg-indigo-600 group-hover:text-white transition-colors uppercase">
+                                        <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center font-black group-hover:bg-indigo-600 group-hover:text-white transition-colors uppercase text-slate-700">
                                             {c.name[0]}
                                         </div>
                                         <div>
@@ -312,13 +310,13 @@ export default function DynamicDashboard() {
                         </div>
                     </div>
                 ) : (
-                    <div className="mb-16 text-center py-10 bg-white rounded-3xl border border-dashed border-slate-200">
+                    <div className="mb-16 text-center py-10 bg-white rounded-3xl border border-dashed border-slate-200 shadow-sm">
                         <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
                             <UserPlus className="w-8 h-8 text-slate-300" />
                         </div>
                         <h3 className="text-lg font-black text-slate-800">No Members Yet</h3>
                         <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mt-1 mb-6">Add your first member to start tracking</p>
-                        <button onClick={() => navigate('/add-customer')} className="bg-indigo-600 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition">
+                        <button onClick={() => navigate('/add-customer')} className="bg-indigo-600 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">
                             Add Member
                         </button>
                     </div>
@@ -343,18 +341,18 @@ export default function DynamicDashboard() {
     );
 }
 
-function QuickAction({ label, sub, icon: Icon, dark, onClick }: any) {
+function QuickAction({ label, sub, icon: Icon, onClick }: any) {
     return (
         <button
             onClick={onClick}
-            className={`${dark ? 'bg-slate-900 text-white border-transparent' : 'bg-white text-slate-900 border-slate-100'} p-6 rounded-[2rem] text-left flex flex-col justify-between h-44 shadow-lg hover:shadow-xl transition-all border group`}
+            className={`bg-white text-slate-900 border-slate-100 p-6 rounded-[2rem] text-left flex flex-col justify-between h-44 shadow-sm hover:shadow-xl transition-all border group`}
         >
-            <div className={`${dark ? 'bg-white/10' : 'bg-slate-50'} p-4 rounded-2xl w-fit group-hover:scale-110 transition-transform`}>
-                <Icon className="w-6 h-6" />
+            <div className={`bg-slate-50 p-4 rounded-2xl w-fit group-hover:scale-110 transition-transform group-hover:bg-indigo-50`}>
+                <Icon className="w-6 h-6 text-slate-800 group-hover:text-indigo-600 transition-colors" />
             </div>
             <div>
                 <p className="text-[9px] font-black uppercase opacity-50 mb-1 italic tracking-widest">{sub}</p>
-                <p className="font-black text-xl leading-none tracking-tighter">{label}</p>
+                <p className="font-black text-xl leading-none tracking-tighter text-slate-800">{label}</p>
             </div>
         </button>
     );

@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGO_URI=mongodb://mongo:27017/moneymitra
+      - REDIS_URL=redis://redis:6379
+      # Add Firebase & WhatsApp keys here or via .env
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - moneymitra-net
+
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - moneymitra-net
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - moneymitra-net
+
+networks:
+  moneymitra-net:
+    driver: bridge
+
+volumes:
+  mongo-data:

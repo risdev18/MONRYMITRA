@@ -1,0 +1,228 @@
+import { useState, useEffect } from 'react';
+import { Ticket, Plus, Trash2, ArrowLeft, Users, ShieldCheck, CheckCircle2, XCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { CouponAPI, BusinessAPI } from '../api';
+
+export default function AdminCoupons() {
+    const navigate = useNavigate();
+    const [tab, setTab] = useState<'COUPONS' | 'ACTIVATIONS'>('COUPONS');
+
+    return (
+        <div className="min-h-screen bg-slate-900 text-slate-100 p-8 font-sans italic">
+            <div className="max-w-4xl mx-auto">
+                <button onClick={() => navigate('/paywall')} className="flex items-center gap-2 text-slate-500 font-black text-[10px] uppercase tracking-widest mb-10 hover:text-white transition">
+                    <ArrowLeft className="w-4 h-4" /> Exit Admin
+                </button>
+
+                <header className="mb-12 flex justify-between items-end">
+                    <div>
+                        <h1 className="text-4xl font-black tracking-tight">Admin Console</h1>
+                        <p className="text-slate-500 font-bold mt-2 italic">Manage your business & revenue.</p>
+                    </div>
+                    <div className="flex bg-slate-800 p-1 rounded-xl">
+                        <button
+                            onClick={() => setTab('COUPONS')}
+                            className={`px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition ${tab === 'COUPONS' ? 'bg-indigo-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                        >
+                            Coupons
+                        </button>
+                        <button
+                            onClick={() => setTab('ACTIVATIONS')}
+                            className={`px-6 py-2 rounded-lg text-xs font-black uppercase tracking-widest transition ${tab === 'ACTIVATIONS' ? 'bg-rose-600 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                        >
+                            Activations
+                        </button>
+                    </div>
+                </header>
+
+                {tab === 'COUPONS' ? <CouponManager /> : <ActivationManager />}
+            </div>
+        </div>
+    );
+}
+
+function ActivationManager() {
+    const [businesses, setBusinesses] = useState<any[]>([]);
+
+    useEffect(() => {
+        loadBusinesses();
+    }, []);
+
+    const loadBusinesses = async () => {
+        const res = await BusinessAPI.getAll();
+        setBusinesses(res.data || []);
+    };
+
+    const togglePremium = async (id: string, activate: boolean) => {
+        if (!window.confirm(activate ? "Activate this user's premium plan?" : "Revoke / Expire this user's plan?")) return;
+        await BusinessAPI.togglePremium(id, activate);
+        loadBusinesses();
+    };
+
+    return (
+        <div className="space-y-6">
+            <div className="bg-slate-800/50 p-6 rounded-[2.5rem] border border-slate-800">
+                <h2 className="font-black text-xs uppercase tracking-widest text-emerald-500 mb-8 italic flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4" /> Pending Requests & Active Users
+                </h2>
+
+                <div className="space-y-4">
+                    {businesses.length === 0 ? (
+                        <div className="text-center py-12 opacity-20">
+                            <Users className="w-12 h-12 mx-auto mb-2" />
+                            <p className="text-xs font-black uppercase tracking-widest">No businesses found</p>
+                        </div>
+                    ) : (
+                        businesses.map((b) => (
+                            <div key={b._id} className="bg-slate-900 p-6 rounded-3xl border border-slate-800 flex items-center justify-between group hover:border-indigo-500 transition-all">
+                                <div>
+                                    <div className="flex items-center gap-3 mb-1">
+                                        <p className="font-black text-white text-lg tracking-tight">{b.businessName}</p>
+                                        {b.paymentStatus === 'PENDING_APPROVAL' && (
+                                            <span className="bg-amber-500 text-slate-900 text-[9px] px-2 py-0.5 rounded-full font-black uppercase">Pending Approval</span>
+                                        )}
+                                        {b.paymentStatus === 'PAID' && (
+                                            <span className="bg-emerald-500 text-slate-900 text-[9px] px-2 py-0.5 rounded-full font-black uppercase">PREMIUM ACTIVE</span>
+                                        )}
+                                    </div>
+                                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">{b.phone} • {b.ownerName}</p>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                    {b.paymentStatus === 'PAID' ? (
+                                        <button
+                                            onClick={() => togglePremium(b._id, false)}
+                                            className="px-4 py-2 bg-slate-800 text-rose-500 rounded-xl text-[10px] font-black uppercase hover:bg-rose-500 hover:text-white transition flex items-center gap-2"
+                                        >
+                                            <XCircle className="w-3 h-3" /> Revoke
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={() => togglePremium(b._id, true)}
+                                            className="px-4 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black uppercase hover:bg-emerald-500 transition shadow-lg shadow-emerald-900/50 flex items-center gap-2 animate-pulse"
+                                        >
+                                            <CheckCircle2 className="w-3 h-3" /> Activate
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function CouponManager() {
+    const [code, setCode] = useState('');
+    const [discount, setDiscount] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [coupons, setCoupons] = useState<any[]>([]);
+
+    useEffect(() => {
+        loadCoupons();
+    }, []);
+
+    const loadCoupons = async () => {
+        const res = await CouponAPI.getAll();
+        setCoupons(res.data || []);
+    };
+
+    const handleCreate = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!code || !discount) return;
+        setIsLoading(true);
+        try {
+            await CouponAPI.create({ code: code.toUpperCase(), discount: Number(discount), isActive: true });
+            alert(`Coupon ${code.toUpperCase()} Created!`);
+            setCode('');
+            setDiscount('');
+            loadCoupons();
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleDelete = async (id: string) => {
+        if (!window.confirm("Delete this coupon?")) return;
+        await CouponAPI.delete(id);
+        loadCoupons();
+    };
+
+    return (
+        <div className="grid md:grid-cols-3 gap-8">
+            <div className="md:col-span-1">
+                <div className="bg-slate-800 p-8 rounded-[2rem] border border-slate-700 shadow-xl">
+                    <h2 className="font-black text-xs uppercase tracking-widest text-indigo-400 mb-6 flex items-center gap-2">
+                        <Plus className="w-4 h-4" /> Create New
+                    </h2>
+                    <form onSubmit={handleCreate} className="space-y-6">
+                        <div>
+                            <label className="block text-[10px] font-black uppercase text-slate-600 mb-2">Code</label>
+                            <input
+                                type="text"
+                                placeholder="SALE50"
+                                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-xl text-white font-bold outline-none focus:ring-2 focus:ring-indigo-500"
+                                value={code}
+                                onChange={e => setCode(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-[10px] font-black uppercase text-slate-600 mb-2">Discount (₹)</label>
+                            <input
+                                type="number"
+                                placeholder="50"
+                                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-xl text-white font-bold outline-none focus:ring-2 focus:ring-indigo-500"
+                                value={discount}
+                                onChange={e => setDiscount(e.target.value)}
+                            />
+                        </div>
+                        <button
+                            disabled={isLoading}
+                            className="w-full py-4 bg-indigo-600 text-white rounded-xl font-black uppercase tracking-widest text-[10px] shadow-lg shadow-indigo-900/50 active:scale-95 transition disabled:opacity-50"
+                        >
+                            {isLoading ? 'Creating...' : 'Generate Coupon'}
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div className="md:col-span-2">
+                <div className="bg-slate-800/50 rounded-[2.5rem] border border-slate-800 p-8">
+                    <h2 className="font-black text-xs uppercase tracking-widest text-slate-500 mb-8 italic">Active Coupons</h2>
+                    <div className="space-y-4">
+                        {coupons.length === 0 ? (
+                            <div className="text-center py-12 opacity-20">
+                                <Ticket className="w-12 h-12 mx-auto mb-2" />
+                                <p className="text-xs font-black uppercase tracking-widest">No active coupons</p>
+                            </div>
+                        ) : (
+                            coupons.map((cp) => (
+                                <div key={cp._id} className="bg-slate-900 p-6 rounded-3xl border border-slate-800 flex items-center justify-between group hover:border-indigo-500 transition-all">
+                                    <div className="flex items-center gap-4">
+                                        <div className="bg-indigo-600/10 p-3 rounded-2xl text-indigo-400">
+                                            <Ticket className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <p className="font-black text-white text-lg tracking-tight">{cp.code}</p>
+                                            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest italic">Save ₹{cp.discount}</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={() => handleDelete(cp._id)}
+                                        className="p-3 text-slate-600 hover:text-rose-500 transition"
+                                    >
+                                        <Trash2 className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Diagnostic</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 600px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        h1 { margin: 0 0 20px 0; font-size: 32px; }
+        .status { padding: 15px; margin: 10px 0; border-radius: 15px; background: rgba(0,0,0,0.2); }
+        .success { background: rgba(16, 185, 129, 0.3); }
+        .error { background: rgba(239, 68, 68, 0.3); }
+        .warning { background: rgba(245, 158, 11, 0.3); }
+        code { background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 5px; }
+        button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔥 Firebase Diagnostic</h1>
+        <div id="results">
+            <div class="status">Checking Firebase configuration...</div>
+        </div>
+        <button onclick="window.location.href='http://localhost:5173'">Go to App</button>
+    </div>
+
+    <script type="module">
+        const results = document.getElementById('results');
+        
+        try {
+            // Test Firebase import
+            const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js');
+            const { getAuth } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js');
+            const { getFirestore } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+            
+            results.innerHTML = '<div class="status success">✅ Firebase SDK loaded successfully</div>';
+            
+            // Test Firebase config
+            const firebaseConfig = {
+                apiKey: "AIzaSyDBaUHn-HGz3oCBM1dorwSYk8F9f4e2bGQ",
+                authDomain: "moneymitra-22314.firebaseapp.com",
+                projectId: "moneymitra-22314",
+                storageBucket: "moneymitra-22314.firebasestorage.app",
+                messagingSenderId: "354091700236",
+                appId: "1:354091700236:web:4de292ea3e40da35305e29"
+            };
+            
+            results.innerHTML += '<div class="status success">✅ Firebase config found</div>';
+            
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            results.innerHTML += '<div class="status success">✅ Firebase initialized</div>';
+            
+            // Test Auth
+            const auth = getAuth(app);
+            results.innerHTML += '<div class="status success">✅ Firebase Auth ready</div>';
+            
+            // Test Firestore
+            const db = getFirestore(app);
+            results.innerHTML += '<div class="status success">✅ Firebase Firestore ready</div>';
+            
+            results.innerHTML += '<div class="status success" style="margin-top: 20px;"><strong>🎉 All checks passed!</strong><br>Your Firebase is configured correctly.<br><br>If your app shows a white page:<br>1. Open browser console (F12)<br>2. Look for errors<br>3. Try hard refresh (Ctrl+Shift+R)</div>';
+            
+        } catch (error) {
+            results.innerHTML = `
+                <div class="status error">
+                    <strong>❌ Error:</strong><br>
+                    ${error.message}
+                    <br><br>
+                    <strong>Possible fixes:</strong><br>
+                    1. Create Firestore Database in Firebase Console<br>
+                    2. Check if firebase package is installed: <code>npm install firebase</code><br>
+                    3. Verify firebase.ts has correct config
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+name: moneymitra_app
+description: "MoneyMitra - Offline-first Payment Reminder SaaS for India"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  flutter_riverpod: ^2.4.9
+  riverpod_annotation: ^2.3.3
+  
+  # Offline & Storage
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.1
+  shared_preferences: ^2.2.2
+  
+  # UI & Assets
+  google_fonts: ^6.1.0
+  flutter_animate: ^4.5.0
+  fpdart: ^1.1.0
+  
+  # Networking
+  dio: ^5.4.0
+  connectivity_plus: ^5.0.2
+  
+  # Firebase
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.15.3
+  cloud_firestore: ^4.13.6
+  
+  # Voice
+  speech_to_text: ^6.6.0
+  flutter_tts: ^3.8.3
+  
+  # Routing
+  go_router: ^13.0.0
+
+  # Tools
+  url_launcher: ^6.2.1
+  font_awesome_flutter: ^10.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  build_runner: ^2.4.7
+  riverpod_generator: ^2.3.9
+  isar_generator: ^3.1.0+1
+
+flutter:
+  uses-material-design: true
+  assets:
+     - assets/images/

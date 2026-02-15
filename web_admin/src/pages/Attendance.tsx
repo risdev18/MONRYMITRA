@@ -46,12 +46,12 @@ export default function Attendance() {
     const filtered = customers.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] flex print:bg-white">
+        <div className="min-h-screen bg-[#F7F9FC] flex print:bg-white">
             {/* Sidebar - Hide on print */}
-            <aside className="w-64 bg-[#1E293B] text-white hidden md:block fixed h-full shadow-2xl print:hidden">
+            <aside className="w-64 bg-slate-900 text-white hidden md:block fixed h-full shadow-2xl print:hidden">
                 <div className="p-8">
                     <h1 className="text-2xl font-bold text-white flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-                        <div className="bg-indigo-500 p-2 rounded-lg">
+                        <div className="bg-emerald-600 p-2 rounded-lg">
                             <CreditCard className="w-5 h-5 text-white" />
                         </div>
                         MoneyMitra
@@ -59,9 +59,9 @@ export default function Attendance() {
                 </div>
                 <nav className="mt-8 px-4">
                     <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition group">
-                        <Users className="w-5 h-5 group-hover:text-indigo-400" /> Dashboard
+                        <Users className="w-5 h-5 group-hover:text-emerald-400" /> Dashboard
                     </button>
-                    <button className="w-full flex items-center gap-3 px-4 py-3 bg-indigo-600/20 text-indigo-400 rounded-xl font-semibold border-l-4 border-indigo-500 mt-2">
+                    <button className="w-full flex items-center gap-3 px-4 py-3 bg-white/10 text-emerald-400 rounded-xl font-semibold border-l-4 border-emerald-500 mt-2">
                         <Calendar className="w-5 h-5" /> Attendance
                     </button>
                 </nav>
@@ -70,7 +70,7 @@ export default function Attendance() {
             <main className="flex-1 p-8 md:ml-64 print:ml-0 print:p-0">
                 <header className="flex justify-between items-center mb-10 print:hidden">
                     <div>
-                        <h2 className="text-3xl font-black text-slate-800 tracking-tight">Attendance Register</h2>
+                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">Attendance Register</h2>
                         <p className="text-slate-500 mt-1 font-medium italic">Paise Vasooli and Presence Tracking Combined</p>
                     </div>
                     <button
@@ -82,10 +82,10 @@ export default function Attendance() {
                 </header>
 
                 {/* Date Selector Card */}
-                <div className="bg-white p-6 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 mb-8 flex flex-wrap items-center justify-between gap-6 print:hidden">
+                <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 mb-8 flex flex-wrap items-center justify-between gap-6 print:hidden">
                     <div className="flex items-center gap-4">
-                        <div className="bg-indigo-50 p-4 rounded-2xl">
-                            <Calendar className="w-6 h-6 text-indigo-600" />
+                        <div className="bg-emerald-50 p-4 rounded-2xl">
+                            <Calendar className="w-6 h-6 text-emerald-600" />
                         </div>
                         <div>
                             <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Selected Date</p>
@@ -105,7 +105,7 @@ export default function Attendance() {
                                 d.setDate(d.getDate() - 1);
                                 setSelectedDate(d.toISOString().split('T')[0]);
                             }}
-                            className="p-3 bg-slate-100 rounded-xl hover:bg-slate-200 transition"
+                            className="p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition border border-slate-100"
                         >
                             <ChevronLeft className="w-5 h-5 text-slate-600" />
                         </button>
@@ -115,14 +115,14 @@ export default function Attendance() {
                                 d.setDate(d.getDate() + 1);
                                 setSelectedDate(d.toISOString().split('T')[0]);
                             }}
-                            className="p-3 bg-slate-100 rounded-xl hover:bg-slate-200 transition"
+                            className="p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition border border-slate-100"
                         >
                             <ChevronRight className="w-5 h-5 text-slate-600" />
                         </button>
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/40 border border-slate-100 overflow-hidden">
+                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
                     {/* Print Header */}
                     <div className="hidden print:block p-8 border-b-2 border-slate-100 mb-6">
                         <h1 className="text-2xl font-bold">MoneyMitra Attendance Sheet</h1>
@@ -131,11 +131,11 @@ export default function Attendance() {
 
                     <div className="p-6 border-b border-slate-50 flex justify-between items-center bg-[#FBFCFE] print:hidden">
                         <div className="relative w-full max-w-md">
-                            <Search className="absolute left-4 top-3.5 text-slate-300 w-5 h-5" />
+                            <Search className="absolute left-4 top-3.5 text-slate-400 w-5 h-5" />
                             <input
                                 type="text"
                                 placeholder="Search by name..."
-                                className="w-full pl-12 pr-4 py-4 rounded-2xl border-none bg-slate-100 focus:ring-2 focus:ring-indigo-500 font-bold text-slate-800 placeholder:text-slate-300 transition"
+                                className="w-full pl-12 pr-4 py-4 rounded-2xl border-none bg-slate-50 focus:ring-2 focus:ring-emerald-500 font-bold text-slate-800 placeholder:text-slate-300 transition"
                                 value={searchTerm}
                                 onChange={e => setSearchTerm(e.target.value)}
                             />

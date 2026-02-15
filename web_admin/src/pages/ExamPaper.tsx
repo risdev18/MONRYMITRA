@@ -89,16 +89,16 @@ export default function ExamPaper() {
 
     if (isGenerating) {
         return (
-            <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center text-white">
-                <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mb-6" />
+            <div className="min-h-screen bg-[#F7F9FC] flex flex-col items-center justify-center text-slate-900">
+                <div className="w-16 h-16 border-4 border-slate-900 border-t-transparent rounded-full animate-spin mb-6" />
                 <h2 className="text-2xl font-black">AI is Crafting Your Paper...</h2>
-                <p className="text-slate-400 mt-2 font-medium">Mixing conceptual + theory questions</p>
+                <p className="text-slate-500 mt-2 font-medium">Mixing conceptual + theory questions</p>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC]">
+        <div className="min-h-screen bg-[#F7F9FC]">
             <header className="bg-white border-b border-slate-100 p-6 flex items-center justify-between sticky top-0 z-50">
                 <div className="flex items-center gap-4">
                     <button onClick={() => navigate(-1)} className="p-2 hover:bg-slate-100 rounded-xl transition">
@@ -119,7 +119,7 @@ export default function ExamPaper() {
                             <p className="text-slate-500 font-medium mt-1 italic">"For a student's future, accuracy is our priority."</p>
                         </div>
 
-                        <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 border-dashed border-2 flex flex-col items-center py-16 relative">
+                        <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 border-dashed border-2 flex flex-col items-center py-16 relative">
                             {(isScanning || isDeepScanning) ? (
                                 <div className="flex flex-col items-center">
                                     <div className={`w-10 h-10 border-4 ${isDeepScanning ? 'border-amber-500' : 'border-indigo-500'} border-t-transparent rounded-full animate-spin mb-4`} />
@@ -173,13 +173,13 @@ export default function ExamPaper() {
                                         return (
                                             <div
                                                 key={c}
-                                                className={`p-4 rounded-2xl text-left flex items-center justify-between group transition-all border-2 ${isSelected ? 'bg-indigo-50 border-indigo-200 shadow-inner' : 'bg-slate-50 border-transparent hover:bg-slate-100'}`}
+                                                className={`p-4 rounded-2xl text-left flex items-center justify-between group transition-all border-2 ${isSelected ? 'bg-emerald-50 border-emerald-200 shadow-inner' : 'bg-slate-50 border-transparent hover:bg-slate-100'}`}
                                             >
                                                 <div className="flex items-center gap-3 cursor-pointer flex-1" onClick={() => toggleChapter(c)}>
-                                                    <div className={`w-5 h-5 rounded-md border-2 transition-all ${isSelected ? 'bg-indigo-600 border-indigo-600 flex items-center justify-center' : 'border-slate-200'}`}>
+                                                    <div className={`w-5 h-5 rounded-md border-2 transition-all ${isSelected ? 'bg-emerald-600 border-emerald-600 flex items-center justify-center' : 'border-slate-200'}`}>
                                                         {isSelected && <CheckCircle2 className="w-3 h-3 text-white" />}
                                                     </div>
-                                                    <span className={`font-bold ${isSelected ? 'text-indigo-700' : 'text-slate-700'}`}>{c}</span>
+                                                    <span className={`font-bold ${isSelected ? 'text-emerald-700' : 'text-slate-700'}`}>{c}</span>
                                                 </div>
                                                 <button
                                                     onClick={(e) => { e.stopPropagation(); removeChapter(c); }}
@@ -196,7 +196,7 @@ export default function ExamPaper() {
                                     <input
                                         type="text"
                                         placeholder="Missing a chapter? Type here..."
-                                        className="flex-1 bg-slate-50 border-none rounded-xl px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-indigo-500"
+                                        className="flex-1 bg-slate-50 border-none rounded-xl px-4 py-3 text-sm font-bold focus:ring-2 focus:ring-emerald-500"
                                         value={manualChapter}
                                         onChange={(e) => setManualChapter(e.target.value)}
                                         onKeyDown={(e) => e.key === 'Enter' && addManualChapter()}
@@ -234,12 +234,12 @@ export default function ExamPaper() {
                                 { id: 'Hard', desc: 'HOTS & Complex Analysis' },
                                 { id: 'Mixed', desc: 'Ideal for Board Prep' }
                             ].map(d => (
-                                <button key={d.id} onClick={nextStep} className="p-6 bg-white border border-slate-100 rounded-3xl text-left flex items-center justify-between hover:border-indigo-500 transition-all shadow-sm group">
+                                <button key={d.id} onClick={nextStep} className="p-6 bg-white border border-slate-100 rounded-3xl text-left flex items-center justify-between hover:border-emerald-500 transition-all shadow-sm group">
                                     <div>
                                         <p className="font-black text-xl text-slate-800">{d.id}</p>
                                         <p className="text-xs text-slate-400 mt-1">{d.desc}</p>
                                     </div>
-                                    <div className="p-4 bg-slate-50 rounded-2-xl group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                    <div className="p-4 bg-slate-50 rounded-2-xl group-hover:bg-slate-900 group-hover:text-white transition-all">
                                         <Bolt className="w-5 h-5" />
                                     </div>
                                 </button>
@@ -267,10 +267,10 @@ export default function ExamPaper() {
                                         setIsCustomPattern(p.id === 'CUSTOM');
                                         nextStep();
                                     }}
-                                    className="p-6 bg-white border border-slate-100 rounded-3xl text-left flex items-center justify-between hover:border-indigo-500 transition-all shadow-sm group"
+                                    className="p-6 bg-white border border-slate-100 rounded-3xl text-left flex items-center justify-between hover:border-emerald-500 transition-all shadow-sm group"
                                 >
                                     <div className="flex items-center gap-5">
-                                        <div className="p-4 bg-slate-50 rounded-2xl group-hover:bg-indigo-50 group-hover:text-indigo-600 transition-all text-slate-400">
+                                        <div className="p-4 bg-slate-50 rounded-2xl group-hover:bg-emerald-50 group-hover:text-emerald-600 transition-all text-slate-400">
                                             <p.icon className="w-6 h-6" />
                                         </div>
                                         <div>
@@ -278,7 +278,7 @@ export default function ExamPaper() {
                                             <p className="text-xs text-slate-400 mt-0.5">{p.id === 'CUSTOM' ? 'Design your own paper structure' : `Standard ${p.marks} Marks Structure`}</p>
                                         </div>
                                     </div>
-                                    <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
+                                    <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                                 </button>
                             ))}
                         </div>
@@ -304,9 +304,9 @@ export default function ExamPaper() {
                                                     const newWeights = [...customWeights];
                                                     newWeights[idx].count++;
                                                     setCustomWeights(newWeights);
-                                                }} className="p-1 hover:bg-slate-100 rounded-lg"><Plus className="w-3 h-3 text-indigo-600" /></button>
+                                                }} className="p-1 hover:bg-slate-100 rounded-lg"><Plus className="w-3 h-3 text-emerald-600" /></button>
                                             )}
-                                            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center font-black text-indigo-600">
+                                            <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center font-black text-emerald-600">
                                                 {section.count}
                                             </div>
                                             {isCustomPattern && (
@@ -324,7 +324,7 @@ export default function ExamPaper() {
                                                     {isCustomPattern ? (
                                                         <input
                                                             type="number"
-                                                            className="w-10 bg-transparent border-b border-slate-200 focus:border-indigo-500 outline-none text-center"
+                                                            className="w-10 bg-transparent border-b border-slate-200 focus:border-emerald-500 outline-none text-center"
                                                             value={section.marks}
                                                             onChange={(e) => {
                                                                 const newWeights = [...customWeights];
@@ -345,14 +345,14 @@ export default function ExamPaper() {
                             ))}
                         </div>
 
-                        <div className={`${isCustomPattern ? 'bg-indigo-50 border-indigo-100' : 'bg-emerald-50 border-emerald-100'} p-6 rounded-[2rem] flex items-center justify-between transition-colors`}>
+                        <div className={`${isCustomPattern ? 'bg-emerald-50 border-emerald-100' : 'bg-emerald-50 border-emerald-100'} p-6 rounded-[2rem] flex items-center justify-between transition-colors`}>
                             <div className="flex items-center gap-3">
-                                {isCustomPattern ? <Settings2 className="w-6 h-6 text-indigo-500" /> : <CheckCircle2 className="w-6 h-6 text-emerald-500" />}
-                                <p className={`font-black ${isCustomPattern ? 'text-indigo-900' : 'text-emerald-900'} text-sm italic uppercase tracking-widest`}>
+                                {isCustomPattern ? <Settings2 className="w-6 h-6 text-emerald-500" /> : <CheckCircle2 className="w-6 h-6 text-emerald-500" />}
+                                <p className={`font-black ${isCustomPattern ? 'text-emerald-900' : 'text-emerald-900'} text-sm italic uppercase tracking-widest`}>
                                     {isCustomPattern ? 'Custom Pattern Active' : 'Grand Total Verified'}
                                 </p>
                             </div>
-                            <p className={`font-black text-2xl ${isCustomPattern ? 'text-indigo-600' : 'text-emerald-600'}`}>
+                            <p className={`font-black text-2xl ${isCustomPattern ? 'text-emerald-600' : 'text-emerald-600'}`}>
                                 {customWeights.reduce((acc, curr) => acc + (curr.count * curr.marks), 0)} Marks
                             </p>
                         </div>
@@ -394,7 +394,7 @@ export default function ExamPaper() {
                             </div>
                             <div className="flex justify-between border-b border-slate-50 pb-4">
                                 <span className="text-slate-400 font-bold text-sm">Pattern</span>
-                                <span className="text-indigo-600 font-black uppercase text-xs tracking-widest">
+                                <span className="text-emerald-600 font-black uppercase text-xs tracking-widest">
                                     {isCustomPattern ? 'User Designed' : 'Standard Template'}
                                 </span>
                             </div>
@@ -405,7 +405,7 @@ export default function ExamPaper() {
                         </div>
 
                         <button onClick={generatePaper} className="w-full py-6 bg-slate-900 text-white rounded-3xl font-black shadow-2xl flex items-center justify-center gap-3 text-lg uppercase tracking-[0.2em] transform hover:scale-[1.03] transition-all group">
-                            <Bolt className="w-6 h-6 text-indigo-400 group-hover:rotate-12 transition-transform" />
+                            <Bolt className="w-6 h-6 text-emerald-400 group-hover:rotate-12 transition-transform" />
                             Launch Direct Extraction
                         </button>
                     </div>
@@ -413,7 +413,7 @@ export default function ExamPaper() {
 
                 {step === 6 && (
                     <div className="space-y-8 animate-in fade-in zoom-in-95 pb-20">
-                        <div className="bg-white p-12 rounded-3xl shadow-2xl border border-slate-100 font-serif max-w-2xl mx-auto border-t-8 border-t-indigo-500 relative overflow-hidden">
+                        <div className="bg-white p-12 rounded-3xl shadow-2xl border border-slate-100 font-serif max-w-2xl mx-auto border-t-8 border-t-slate-900 relative overflow-hidden">
                             {/* Syllabus Compliance Watermark */}
                             <div className="absolute top-10 right-[-40px] rotate-45 bg-emerald-500 text-white px-12 py-1 text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
                                 Syllabus Verified
@@ -445,7 +445,7 @@ export default function ExamPaper() {
                                                     </p>
                                                 </div>
                                                 {section.count > 1 && (
-                                                    <p className="text-[9px] font-black text-indigo-600 italic uppercase">Solve Any {section.count - 1 < 1 ? 1 : section.count - 1}</p>
+                                                    <p className="text-[9px] font-black text-emerald-600 italic uppercase">Solve Any {section.count - 1 < 1 ? 1 : section.count - 1}</p>
                                                 )}
                                             </div>
 

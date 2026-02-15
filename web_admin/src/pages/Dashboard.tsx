@@ -104,20 +104,20 @@ export default function Dashboard() {
     const filtered = customers.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] flex">
+        <div className="min-h-screen bg-[#F7F9FC] flex">
             {/* Sidebar */}
-            <aside className="w-64 bg-[#1E293B] text-white hidden md:block fixed h-full shadow-2xl">
+            <aside className="w-64 bg-slate-900 text-white hidden md:block fixed h-full shadow-2xl">
                 <div className="p-8">
                     <h1 className="text-2xl font-bold text-white flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
-                        <div className="bg-blue-500 p-2 rounded-lg">
+                        <div className="bg-emerald-600 p-2 rounded-lg">
                             <CreditCard className="w-5 h-5 text-white" />
                         </div>
                         MoneyMitra
                     </h1>
-                    <p className="text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-2 opacity-80">Paise Vasooli Assistant</p>
+                    <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest mt-2 opacity-80">Paise Vasooli Assistant</p>
                 </div>
                 <nav className="mt-8 px-4">
-                    <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-4 py-3 bg-blue-600/20 text-blue-400 rounded-xl font-semibold border-l-4 border-blue-500">
+                    <button onClick={() => navigate('/')} className="w-full flex items-center gap-3 px-4 py-3 bg-emerald-600/20 text-emerald-400 rounded-xl font-semibold border-l-4 border-emerald-500">
                         <Users className="w-5 h-5" /> Dashboard
                     </button>
                     <button onClick={() => navigate('/attendance')} className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition mt-2">
@@ -133,9 +133,9 @@ export default function Dashboard() {
                         <p className="text-xs text-slate-400">Pro Feature</p>
                         <p className="text-sm font-bold text-white mt-1 flex items-center justify-between">
                             Voice First Entry
-                            <Mic className={`w-4 h-4 ${isListening ? 'text-rose-500 animate-pulse' : 'text-blue-400'}`} />
+                            <Mic className={`w-4 h-4 ${isListening ? 'text-rose-500 animate-pulse' : 'text-emerald-400'}`} />
                         </p>
-                        <div className="flex items-center gap-2 mt-2 text-[10px] text-blue-400">
+                        <div className="flex items-center gap-2 mt-2 text-[10px] text-emerald-400">
                             {isListening ? "Listening..." : "Click to Try Demo"}
                         </div>
                     </button>
@@ -146,13 +146,13 @@ export default function Dashboard() {
             <main className="flex-1 p-8 md:ml-64">
                 <header className="flex justify-between items-start mb-10">
                     <div>
-                        <h2 className="text-3xl font-extrabold text-[#1E293B]">Home Dashboard</h2>
+                        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Home Dashboard</h2>
                         <p className="text-slate-500 mt-1 font-medium">MoneyMitra – Paise Vasooli ka Tension Khatam</p>
                     </div>
                     <div className="flex gap-4">
                         <button
                             onClick={() => navigate('/add-customer')}
-                            className="flex items-center gap-2 bg-[#6366F1] text-white px-6 py-3 rounded-xl hover:bg-[#4F46E5] transition shadow-lg shadow-indigo-200 font-bold"
+                            className="flex items-center gap-2 bg-slate-900 text-white px-6 py-3 rounded-xl hover:bg-slate-800 transition shadow-lg shadow-slate-200 font-bold"
                         >
                             <Plus className="w-5 h-5" /> Onboard Member
                         </button>
@@ -200,7 +200,7 @@ export default function Dashboard() {
                                 <input
                                     type="text"
                                     placeholder="Search members..."
-                                    className="w-full pl-9 pr-4 py-2 text-sm rounded-xl border-none bg-slate-100 focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full pl-9 pr-4 py-2 text-sm rounded-xl border-none bg-slate-100 focus:ring-2 focus:ring-emerald-500"
                                     value={searchTerm}
                                     onChange={e => setSearchTerm(e.target.value)}
                                 />
@@ -282,7 +282,7 @@ export default function Dashboard() {
                                                 </p>
                                             </td>
                                             <td className="px-8 py-5 text-right">
-                                                <button className="text-indigo-600 font-black text-xs hover:bg-indigo-50 px-4 py-2 rounded-lg transition uppercase tracking-wider">
+                                                <button className="text-slate-900 font-black text-xs hover:bg-slate-50 px-4 py-2 rounded-lg transition uppercase tracking-wider">
                                                     Manage
                                                 </button>
                                             </td>

@@ -36,19 +36,19 @@ export default function AddCustomer() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] py-12 px-6">
+        <div className="min-h-screen bg-[#F7F9FC] py-12 px-6">
             <div className="max-w-xl mx-auto">
-                <button onClick={() => navigate(-1)} className="group flex items-center text-slate-500 mb-8 hover:text-indigo-600 transition font-bold text-sm">
+                <button onClick={() => navigate(-1)} className="group flex items-center text-slate-500 mb-8 hover:text-emerald-600 transition font-bold text-sm">
                     <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition" /> Back
                 </button>
 
-                <div className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-6 opacity-10">
-                        <Zap className="w-20 h-20 text-indigo-600" />
+                <div className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-6 opacity-5">
+                        <Zap className="w-20 h-20 text-emerald-600" />
                     </div>
 
                     <header className="mb-10">
-                        <h1 className="text-3xl font-black text-slate-800 tracking-tight">Onboard Member</h1>
+                        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Onboard Member</h1>
                         <p className="text-slate-500 mt-2 font-medium">Add details to start automatic payment tracking</p>
                     </header>
 
@@ -59,7 +59,7 @@ export default function AddCustomer() {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-800 placeholder:text-slate-300 transition"
+                                    className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-800 placeholder:text-slate-300 transition"
                                     value={formData.name}
                                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                                     placeholder="Enter full name"
@@ -74,7 +74,7 @@ export default function AddCustomer() {
                                         required
                                         type="tel"
                                         pattern="[0-9]{10}"
-                                        className="w-full pl-16 pr-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-800 placeholder:text-slate-300 transition"
+                                        className="w-full pl-16 pr-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-800 placeholder:text-slate-300 transition"
                                         value={formData.phone}
                                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
                                         placeholder="9123456789"
@@ -86,7 +86,7 @@ export default function AddCustomer() {
                                 <div>
                                     <label className="block text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Category</label>
                                     <select
-                                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-800 appearance-none cursor-pointer"
+                                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-800 appearance-none cursor-pointer"
                                         value={formData.category}
                                         onChange={e => setFormData({ ...formData, category: e.target.value })}
                                     >
@@ -101,7 +101,7 @@ export default function AddCustomer() {
                                     <label className="block text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Start Date</label>
                                     <input
                                         type="date"
-                                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-800"
+                                        className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-800"
                                         value={formData.startDate ? new Date(formData.startDate).toISOString().split('T')[0] : ''}
                                         onChange={e => setFormData({ ...formData, startDate: new Date(e.target.value) })}
                                     />
@@ -112,7 +112,7 @@ export default function AddCustomer() {
                                 <label className="block text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">First Payment Due Date</label>
                                 <input
                                     type="date"
-                                    className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-indigo-900 shadow-inner"
+                                    className="w-full px-6 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900 shadow-inner"
                                     value={formData.nextDueDate ? new Date(formData.nextDueDate).toISOString().split('T')[0] : ''}
                                     onChange={e => setFormData({ ...formData, nextDueDate: new Date(e.target.value) })}
                                 />
@@ -120,16 +120,16 @@ export default function AddCustomer() {
                             </div>
                         </div>
 
-                        <div className="p-8 bg-indigo-50/50 rounded-3xl border border-indigo-100/50 space-y-6">
-                            <h3 className="text-indigo-900 font-black text-sm uppercase tracking-wider flex items-center gap-2">
+                        <div className="p-8 bg-emerald-50/50 rounded-3xl border border-emerald-100/50 space-y-6">
+                            <h3 className="text-emerald-900 font-black text-sm uppercase tracking-wider flex items-center gap-2">
                                 <ShieldCheck className="w-4 h-4" /> Billing Automation
                             </h3>
 
                             <div className="grid grid-cols-2 gap-6">
                                 <div>
-                                    <label className="block text-[10px] font-black text-indigo-400 mb-2 uppercase">Billing Cycle</label>
+                                    <label className="block text-[10px] font-black text-emerald-400 mb-2 uppercase">Billing Cycle</label>
                                     <select
-                                        className="w-full px-4 py-3 bg-white border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-indigo-900"
+                                        className="w-full px-4 py-3 bg-white border-none rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900"
                                         value={formData.billingCycle}
                                         onChange={e => setFormData({ ...formData, billingCycle: e.target.value })}
                                     >
@@ -139,28 +139,28 @@ export default function AddCustomer() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-[10px] font-black text-indigo-400 mb-2 uppercase">Fee (₹)</label>
+                                    <label className="block text-[10px] font-black text-emerald-400 mb-2 uppercase">Fee (₹)</label>
                                     <input
                                         type="number"
-                                        className="w-full px-4 py-3 bg-white border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-indigo-900"
+                                        className="w-full px-4 py-3 bg-white border-none rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900"
                                         value={formData.monthlyFee}
                                         onChange={e => setFormData({ ...formData, monthlyFee: Number(e.target.value) })}
                                     />
                                 </div>
                             </div>
 
-                            <div className="pt-2 border-t border-indigo-100/50">
-                                <label className="block text-[10px] font-black text-indigo-400 mb-2 uppercase">Advance/Joining Due (₹)</label>
+                            <div className="pt-2 border-t border-emerald-100/50">
+                                <label className="block text-[10px] font-black text-emerald-400 mb-2 uppercase">Advance/Joining Due (₹)</label>
                                 <input
                                     type="number"
                                     placeholder="Enter amount if any"
-                                    className="w-full px-4 py-3 bg-white border-none rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-indigo-900"
+                                    className="w-full px-4 py-3 bg-white border-none rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-slate-900"
                                     value={formData.amountDue}
                                     onChange={e => setFormData({ ...formData, amountDue: Number(e.target.value) })}
                                 />
                             </div>
 
-                            <p className="text-[11px] text-indigo-400 font-bold leading-relaxed">
+                            <p className="text-[11px] text-emerald-600 font-bold leading-relaxed">
                                 MoneyMitra will automatically detect when payment is due and suggest a WhatsApp reminder.
                             </p>
                         </div>
@@ -168,12 +168,12 @@ export default function AddCustomer() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className={`w-full py-5 rounded-2xl font-black text-white transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95 ${loading ? 'bg-indigo-300' : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-200'}`}
+                            className={`w-full py-5 rounded-2xl font-black text-white transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95 ${loading ? 'bg-slate-300' : 'bg-slate-900 hover:bg-slate-800 shadow-slate-200'}`}
                         >
                             {loading ? (
                                 'Processing...'
                             ) : (
-                                <><Save className="w-5 h-5 text-indigo-200" /> Start Tracking Now</>
+                                <><Save className="w-5 h-5 opacity-50" /> Start Tracking Now</>
                             )}
                         </button>
                     </form>

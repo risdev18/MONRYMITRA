@@ -50,22 +50,22 @@ export default function SetupBusinessPage() {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col items-center p-4 md:p-8 font-sans">
+        <div className="min-h-screen bg-[#F7F9FC] flex flex-col items-center p-4 md:p-8 font-sans">
             <div className="w-full max-w-xl">
                 {/* Progress Bar */}
                 <div className="flex gap-2 mb-8">
-                    <div className={`h-2 flex-1 rounded-full ${step >= 1 ? 'bg-indigo-600' : 'bg-slate-200'}`} />
-                    <div className={`h-2 flex-1 rounded-full ${step >= 2 ? 'bg-indigo-600' : 'bg-slate-200'}`} />
+                    <div className={`h-2 flex-1 rounded-full ${step >= 1 ? 'bg-slate-900' : 'bg-slate-200'}`} />
+                    <div className={`h-2 flex-1 rounded-full ${step >= 2 ? 'bg-slate-900' : 'bg-slate-200'}`} />
                 </div>
 
                 <header className="mb-10 text-center">
-                    <h1 className="text-3xl font-black text-slate-800 tracking-tight">Setup Your Business</h1>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">Setup Your Business</h1>
                     <p className="text-slate-500 font-medium mt-1">We will customize the app for you.</p>
                 </header>
 
                 {step === 1 ? (
                     <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                        <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100">
+                        <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100">
                             <div className="space-y-5">
                                 <InputField
                                     label="Business Name"
@@ -102,7 +102,7 @@ export default function SetupBusinessPage() {
                                         <div className="relative">
                                             <Languages className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
                                             <select
-                                                className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl font-bold text-slate-800 border-none focus:ring-2 focus:ring-indigo-500 appearance-none"
+                                                className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl font-bold text-slate-800 border-none focus:ring-2 focus:ring-emerald-500 appearance-none"
                                                 value={formData.language}
                                                 onChange={(e) => setFormData({ ...formData, language: e.target.value })}
                                             >
@@ -118,7 +118,7 @@ export default function SetupBusinessPage() {
                         <button
                             onClick={() => setStep(2)}
                             disabled={!formData.businessName || !formData.phone}
-                            className="w-full py-5 bg-indigo-600 text-white rounded-2xl font-black shadow-xl shadow-indigo-100 flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 transition-all uppercase tracking-widest text-sm"
+                            className="w-full py-5 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-200 flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50 transition-all uppercase tracking-widest text-sm"
                         >
                             Next Step <ChevronRight className="w-5 h-5" />
                         </button>
@@ -134,7 +134,7 @@ export default function SetupBusinessPage() {
                                         <button
                                             key={type.id}
                                             onClick={() => setFormData({ ...formData, businessType: type.id })}
-                                            className={`flex flex-col items-center p-6 rounded-[2rem] border-4 transition-all active:scale-95 ${formData.businessType === type.id ? 'border-indigo-600 bg-indigo-50' : 'border-transparent bg-slate-50 grayscale hover:grayscale-0'}`}
+                                            className={`flex flex-col items-center p-6 rounded-[2rem] border-4 transition-all active:scale-95 ${formData.businessType === type.id ? 'border-emerald-600 bg-emerald-50' : 'border-transparent bg-slate-50 grayscale hover:grayscale-0'}`}
                                         >
                                             <div className={`p-4 rounded-2xl ${type.color} text-white mb-3 shadow-lg`}>
                                                 <Icon className="w-8 h-8" />
@@ -156,7 +156,7 @@ export default function SetupBusinessPage() {
                             <button
                                 onClick={handleSubmit}
                                 disabled={!formData.businessType || loading}
-                                className="flex-[2] py-5 bg-indigo-600 text-white rounded-2xl font-black shadow-xl shadow-indigo-100 active:scale-95 disabled:opacity-50 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2"
+                                className="flex-[2] py-5 bg-slate-900 text-white rounded-2xl font-black shadow-xl shadow-slate-200 active:scale-95 disabled:opacity-50 transition-all text-sm uppercase tracking-widest flex items-center justify-center gap-2"
                             >
                                 {loading ? 'Setting up...' : 'Setup My Business'} <CheckCircle2 className="w-5 h-5" />
                             </button>
@@ -179,7 +179,7 @@ function InputField({ label, icon: Icon, placeholder, type = "text", value, onCh
                     placeholder={placeholder}
                     value={value}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-                    className="w-full pl-16 pr-6 py-5 bg-slate-50 rounded-2xl font-bold text-slate-800 placeholder:text-slate-300 border-none focus:ring-2 focus:ring-indigo-500 transition-all text-lg"
+                    className="w-full pl-16 pr-6 py-5 bg-slate-50 rounded-2xl font-bold text-slate-800 placeholder:text-slate-300 border-none focus:ring-2 focus:ring-emerald-500 transition-all text-lg"
                 />
             </div>
         </div>

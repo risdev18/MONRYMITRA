@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Users, CreditCard, Calendar, Plus, Search, Download, TrendingUp, AlertCircle, CheckCircle2, Mic } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Users, CreditCard, Calendar, Plus, Search, TrendingUp, AlertCircle, CheckCircle2, Mic } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { CustomerAPI, TransactionAPI } from '../api';
 
@@ -8,7 +8,6 @@ export default function Dashboard() {
     const [customers, setCustomers] = useState<any[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [stats, setStats] = useState({ todayPending: 0, weekPending: 0, paidToday: 0 });
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         loadData();
@@ -47,11 +46,9 @@ export default function Dashboard() {
                 .reduce((sum: number, t: any) => sum + (t.amount || 0), 0);
 
             setStats({ todayPending, weekPending, paidToday });
-            setLoading(false);
         } catch (e) {
             console.error("Failed to load dashboard data", e);
             setCustomers([]);
-            setLoading(false);
         }
     };
 

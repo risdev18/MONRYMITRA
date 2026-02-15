@@ -19,8 +19,9 @@ export default function Paywall() {
         setIsLoading(true);
         try {
             const res = await CouponAPI.validate(coupon);
-            if (res.data && res.data.discount !== undefined) {
-                setDiscount(res.data.discount);
+            const data = res.data as any; // Cast to any to avoid TS error for 'discount'
+            if (data && data.discount !== undefined) {
+                setDiscount(data.discount);
                 setAppliedCode(coupon.toUpperCase());
             } else {
                 alert("Invalid or Expired Coupon");

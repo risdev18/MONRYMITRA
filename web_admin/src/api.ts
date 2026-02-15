@@ -195,7 +195,7 @@ export const BusinessAPI = {
     },
 
     // User: Request Activation
-    requestActivation: async (business: any) => {
+    requestActivation: async (_business: any) => {
         const userId = getUserId();
         if (!userId) throw new Error('Not authenticated');
 

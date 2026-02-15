@@ -10,7 +10,7 @@ import { CustomerAPI } from '../api';
 
 export default function DynamicDashboard() {
     const navigate = useNavigate();
-    const { business, preferences } = useAppStore();
+    const { business } = useAppStore();
     const [customers, setCustomers] = useState<any[]>([]);
     const [isListening, setIsListening] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
@@ -87,12 +87,11 @@ export default function DynamicDashboard() {
         };
         recognition.start();
     };
-
+    // ... (skipping unchanged lines)
     if (!business) return <div className="min-h-screen bg-white flex items-center justify-center font-black text-slate-400">⚡ LOADING...</div>;
 
     const totalPending = customers.reduce((sum, c) => sum + (Number(c.amountDue) || 0), 0);
     const activeCount = customers.length;
-    const modules = preferences?.enabledModules || [];
     const filtered = customers.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 5);
 
     return (

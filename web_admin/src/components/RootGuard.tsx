@@ -26,6 +26,7 @@ const RootGuard = ({ children }: { children: React.ReactNode }) => {
         // But for MVP, if it's missing, we let it slide or set it.
 
         let isActive = false;
+        if (business.paymentStatus === 'PAID') isActive = true;
         if (trialExpiry && now < trialExpiry) isActive = true;
         if (subExpiry && now < subExpiry) isActive = true;
 

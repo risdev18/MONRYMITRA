@@ -39,7 +39,7 @@ export default function AddCustomer() {
         <div className="min-h-screen bg-[#F8FAFC] py-12 px-6">
             <div className="max-w-xl mx-auto">
                 <button onClick={() => navigate(-1)} className="group flex items-center text-slate-500 mb-8 hover:text-indigo-600 transition font-bold text-sm">
-                    <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition" /> BTN_BACK
+                    <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition" /> Back
                 </button>
 
                 <div className="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100 relative overflow-hidden">

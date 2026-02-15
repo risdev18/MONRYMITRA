@@ -276,7 +276,7 @@ export default function DynamicDashboard() {
                 </div>
 
                 {/* Member List */}
-                {customers.length > 0 && (
+                {customers.length > 0 ? (
                     <div className="mb-16">
                         <header className="flex justify-between items-center mb-6 px-2">
                             <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 italic">Recent Members</h3>
@@ -311,20 +311,31 @@ export default function DynamicDashboard() {
                             ))}
                         </div>
                     </div>
+                ) : (
+                    <div className="mb-16 text-center py-10 bg-white rounded-3xl border border-dashed border-slate-200">
+                        <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <UserPlus className="w-8 h-8 text-slate-300" />
+                        </div>
+                        <h3 className="text-lg font-black text-slate-800">No Members Yet</h3>
+                        <p className="text-slate-400 text-xs font-bold uppercase tracking-wider mt-1 mb-6">Add your first member to start tracking</p>
+                        <button onClick={() => navigate('/add-customer')} className="bg-indigo-600 text-white px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition">
+                            Add Member
+                        </button>
+                    </div>
                 )}
             </main>
 
-            {/* Bottom Bar */}
-            <div className="fixed bottom-10 left-0 w-full px-6 flex justify-center z-50 pointer-events-none">
-                <div className="bg-slate-900 border border-slate-800 text-white rounded-full p-2 flex gap-4 shadow-2xl pointer-events-auto items-center">
-                    <button className="flex items-center gap-3 px-8 py-4 px-10 hover:bg-white/5 rounded-full transition">
-                        <MessageCircle className="w-5 h-5 text-emerald-400" />
-                        <span className="text-[10px] font-black uppercase tracking-widest">Support</span>
+            {/* Bottom Bar - Compact */}
+            <div className="fixed bottom-6 left-0 w-full px-6 flex justify-center z-50 pointer-events-none">
+                <div className="bg-slate-900/90 border border-slate-700/50 backdrop-blur-md text-white rounded-full p-1.5 flex gap-2 shadow-2xl pointer-events-auto items-center">
+                    <button className="flex items-center gap-2 px-6 py-3 hover:bg-white/10 rounded-full transition">
+                        <MessageCircle className="w-4 h-4 text-emerald-400" />
+                        <span className="text-[9px] font-black uppercase tracking-widest">Help</span>
                     </button>
-                    <div className="w-[1px] bg-slate-800 h-6"></div>
-                    <button className="flex items-center gap-3 px-8 py-4 px-10 hover:bg-white/5 rounded-full transition">
-                        <Phone className="w-5 h-5 text-indigo-400" />
-                        <span className="text-[10px] font-black uppercase tracking-widest">Hotline</span>
+                    <div className="w-[1px] bg-slate-700 h-4"></div>
+                    <button className="flex items-center gap-2 px-6 py-3 hover:bg-white/10 rounded-full transition">
+                        <Phone className="w-4 h-4 text-indigo-400" />
+                        <span className="text-[9px] font-black uppercase tracking-widest">Call</span>
                     </button>
                 </div>
             </div>

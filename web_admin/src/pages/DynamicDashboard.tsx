@@ -135,23 +135,49 @@ export default function DynamicDashboard() {
 
             {/* Trial / Subscription Banner */}
             <div className="max-w-5xl mx-auto px-6 mt-4">
-                <div className="bg-indigo-600/10 border border-indigo-600/20 p-4 rounded-2xl flex items-center justify-between backdrop-blur-sm">
-                    <div className="flex items-center gap-3">
-                        <div className="bg-indigo-600 p-2 rounded-lg">
-                            <Zap className="w-4 h-4 text-white" />
+                {business.paymentStatus === 'TRIAL' && (
+                    <div className="bg-indigo-600/10 border border-indigo-600/20 p-4 rounded-2xl flex items-center justify-between backdrop-blur-sm">
+                        <div className="flex items-center gap-3">
+                            <div className="bg-indigo-600 p-2 rounded-lg">
+                                <Zap className="w-4 h-4 text-white" />
+                            </div>
+                            <div>
+                                <p className="text-xs font-black text-indigo-900 uppercase">3-Day Free Trial Active</p>
+                                <p className="text-[10px] text-indigo-500 font-bold">Unlock unlimited features forever.</p>
+                            </div>
+                        </div>
+                        <button
+                            onClick={() => navigate('/paywall')}
+                            className="bg-indigo-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition active:scale-95"
+                        >
+                            Pay Now
+                        </button>
+                    </div>
+                )}
+
+                {business.paymentStatus === 'PENDING_APPROVAL' && (
+                    <div className="bg-amber-500/10 border border-amber-500/20 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-sm">
+                        <div className="bg-amber-500 p-2 rounded-lg">
+                            <ShieldCheck className="w-4 h-4 text-white" />
                         </div>
                         <div>
-                            <p className="text-xs font-black text-indigo-900 uppercase">3-Day Free Trial Active</p>
-                            <p className="text-[10px] text-indigo-500 font-bold">Unlock unlimited features forever.</p>
+                            <p className="text-xs font-black text-amber-800 uppercase">Activation Pending</p>
+                            <p className="text-[10px] text-amber-600 font-bold">Admin is reviewing your payment.</p>
                         </div>
                     </div>
-                    <button
-                        onClick={() => navigate('/paywall')}
-                        className="bg-indigo-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition active:scale-95"
-                    >
-                        Pay Now
-                    </button>
-                </div>
+                )}
+
+                {business.paymentStatus === 'PAID' && (
+                    <div className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl flex items-center gap-3 backdrop-blur-sm">
+                        <div className="bg-emerald-500 p-2 rounded-lg">
+                            <ShieldCheck className="w-4 h-4 text-white" />
+                        </div>
+                        <div>
+                            <p className="text-xs font-black text-emerald-800 uppercase">Premium Plan Active</p>
+                            <p className="text-[10px] text-emerald-600 font-bold">All features unlocked.</p>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <main className="max-w-5xl mx-auto p-6 -mt-4 relative z-20">

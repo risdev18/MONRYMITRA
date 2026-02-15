@@ -5,8 +5,10 @@ import {
     Phone, Send, CreditCard, TrendingUp,
     Search, Mic, Users, ArrowUpRight, Trash2, X, ShieldCheck, Zap, Plus
 } from 'lucide-react';
+import { auth } from '../firebase';
+import { signOut } from 'firebase/auth';
 import { useAppStore } from '../store/useAppStore';
-import { CustomerAPI } from '../api';
+import { CustomerAPI, BusinessAPI } from '../api';
 
 export default function DynamicDashboard() {
     const navigate = useNavigate();
@@ -15,6 +17,7 @@ export default function DynamicDashboard() {
     const [isListening, setIsListening] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [transcript, setTranscript] = useState('');
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
     useEffect(() => {
         loadStats();
@@ -54,6 +57,35 @@ export default function DynamicDashboard() {
                 loadStats();
             } catch (error) {
                 console.error("Failed to delete member", error);
+            }
+        }
+    };
+
+    const handleLogout = async () => {
+        if (window.confirm("Log out from MoneyMitra?")) {
+            await signOut(auth);
+            navigate('/auth');
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        if (window.confirm("🚨 CRITICAL: Are you sure you want to delete your MoneyMitra account? This will permanently erase ALL members, history, and business settings. This action is irreversible.")) {
+            try {
+                // Delete all customers first
+                const promises = customers.map(c => CustomerAPI.delete(c._id));
+                await Promise.all(promises);
+
+                // Delete business record
+                if (business?._id) {
+                    await BusinessAPI.delete(business._id);
+                }
+
+                alert("All your data has been erased. Your account is now deactivated.");
+                await signOut(auth);
+                navigate('/auth');
+            } catch (e) {
+                console.error(e);
+                alert("Critical error during deletion. Please contact support.");
             }
         }
     };
@@ -114,7 +146,7 @@ export default function DynamicDashboard() {
 
     const totalPending = customers.reduce((sum, c) => sum + (Number(c.amountDue) || 0), 0);
     const activeCount = customers.length;
-    const filtered = customers.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 5);
+    const filtered = customers.filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase())).slice(0, 100);
 
     return (
         <div className="min-h-screen bg-[#F7F9FC] pb-32 font-sans text-slate-900">
@@ -135,7 +167,7 @@ export default function DynamicDashboard() {
                             <button onClick={clearAllData} className="p-3.5 bg-white/5 rounded-2xl hover:bg-rose-500 border border-white/10 group transition-all active:scale-95" title="Reset All">
                                 <Trash2 className="w-5 h-5 text-rose-400 group-hover:text-white" />
                             </button>
-                            <button onClick={() => alert("Settings coming soon!")} className="p-3.5 bg-white/5 rounded-2xl hover:bg-slate-700 transition border border-white/10 active:scale-95">
+                            <button onClick={() => setIsSettingsOpen(true)} className="p-3.5 bg-white/5 rounded-2xl hover:bg-slate-700 transition border border-white/10 active:scale-95">
                                 <Settings className="w-5 h-5 text-slate-300" />
                             </button>
                         </div>
@@ -359,6 +391,60 @@ export default function DynamicDashboard() {
                     <span className="absolute right-full mr-3 bg-slate-900 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Call Now</span>
                 </button>
             </div>
+
+            {/* Settings Modal */}
+            {isSettingsOpen && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 backdrop-blur-md bg-slate-900/60 animate-in fade-in duration-300">
+                    <div className="bg-white w-full max-w-sm rounded-[3rem] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 border border-slate-200">
+                        <div className="p-8 pb-4 flex justify-between items-center border-b border-slate-50">
+                            <div>
+                                <h2 className="text-xl font-black text-slate-900 tracking-tight">System Settings</h2>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mt-1 italic">Account Control Panel</p>
+                            </div>
+                            <button onClick={() => setIsSettingsOpen(false)} className="p-2 hover:bg-slate-100 rounded-xl transition">
+                                <X className="w-5 h-5 text-slate-400" />
+                            </button>
+                        </div>
+
+                        <div className="p-8 space-y-4">
+                            <button
+                                onClick={handleLogout}
+                                className="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 rounded-2xl transition group"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="bg-slate-200 p-3 rounded-xl group-hover:bg-slate-900 transition flex items-center justify-center">
+                                        <ArrowUpRight className="w-5 h-5 text-slate-600 group-hover:text-white rotate-45" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="font-black text-slate-900">Logout Session</p>
+                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Exit console safely</p>
+                                    </div>
+                                </div>
+                            </button>
+
+                            <button
+                                onClick={handleDeleteAccount}
+                                className="w-full flex items-center justify-between p-5 bg-rose-50/50 hover:bg-rose-50 rounded-2xl transition group border border-rose-100"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="bg-rose-100 p-3 rounded-xl group-hover:bg-rose-500 transition flex items-center justify-center">
+                                        <Trash2 className="w-5 h-5 text-rose-600 group-hover:text-white" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="font-black text-rose-900">Delete Account</p>
+                                        <p className="text-[10px] font-bold text-rose-400 uppercase tracking-widest mt-0.5">Wipe all business data</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div className="p-8 bg-slate-50 border-t border-slate-100 text-center">
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">MoneyMitra v1.4.2</p>
+                            <p className="text-[9px] font-bold text-slate-300 mt-1 italic italic">"Paise Vasooli ka Tension Khatam"</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

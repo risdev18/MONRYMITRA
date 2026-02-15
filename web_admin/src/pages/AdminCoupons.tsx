@@ -66,7 +66,7 @@ function ActivationManager() {
                     <ShieldCheck className="w-4 h-4" /> Pending Requests & Active Users
                 </h2>
 
-                <div className="space-y-4">
+                <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
                     {businesses.length === 0 ? (
                         <div className="text-center py-12 opacity-40">
                             <Users className="w-12 h-12 mx-auto mb-2 text-slate-300" />

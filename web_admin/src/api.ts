@@ -244,6 +244,12 @@ export const BusinessAPI = {
         }
 
         return { data: { success: true } };
+    },
+
+    // Admin: Delete business account
+    delete: async (id: string) => {
+        await deleteDoc(doc(db, 'businesses', id));
+        return { data: { success: true } };
     }
 };
 

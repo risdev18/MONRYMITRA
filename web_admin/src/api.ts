@@ -174,7 +174,18 @@ export const BusinessAPI = {
         const docSnap = await getDoc(docRef);
 
         if (!docSnap.exists()) return { data: null };
-        return { data: { _id: docSnap.id, ...docSnap.data() } };
+
+        const data = docSnap.data();
+        return {
+            data: {
+                _id: docSnap.id,
+                ...data,
+                // Ensure Date fields are actual Date objects, not Firestore Timestamps
+                trialExpiry: data.trialExpiry?.toDate ? data.trialExpiry.toDate() : data.trialExpiry,
+                subscriptionExpiry: data.subscriptionExpiry?.toDate ? data.subscriptionExpiry.toDate() : data.subscriptionExpiry,
+                createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : data.createdAt
+            }
+        };
     },
 
     // Create/Update business

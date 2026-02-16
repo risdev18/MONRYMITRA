@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, Zap, CheckCircle2 } from 'lucide-react';
+import { Lock, Zap, CheckCircle2, MessageCircle } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 import { useNavigate } from 'react-router-dom';
 import { CouponAPI, BusinessAPI } from '../api';
@@ -69,20 +69,31 @@ export default function Paywall() {
                     </div>
                     <h1 className="text-2xl font-black text-slate-800">Request Sent!</h1>
                     <p className="text-slate-500 font-bold mt-4">Your activation request has been sent to the admin.</p>
-                    <p className="text-slate-400 text-xs mt-2">Please contact support or wait for confirmation.</p>
+                    <div className="bg-emerald-50 p-4 rounded-2xl mt-4 border border-emerald-100">
+                        <p className="text-emerald-700 text-xs font-black uppercase tracking-widest italic">⏳ Activation usually takes 5–10 minutes.</p>
+                    </div>
+
+                    <a
+                        href="https://wa.me/919999999999?text=Hi, I just requested premium activation for MoneyMitra."
+                        target="_blank"
+                        className="mt-8 w-full py-4 bg-[#25D366] text-white rounded-xl font-black text-sm hover:bg-[#128C7E] transition shadow-lg shadow-emerald-100 flex items-center justify-center gap-2 uppercase tracking-widest"
+                    >
+                        <MessageCircle className="w-5 h-5" /> Chat on WhatsApp
+                    </a>
+
                     <button
                         onClick={checkActivationStatus}
                         disabled={isChecking}
-                        className="mt-8 px-6 py-3 bg-emerald-600 text-white rounded-xl font-black text-sm hover:bg-emerald-700 transition disabled:opacity-50"
+                        className="mt-4 w-full py-4 bg-slate-900 text-white rounded-xl font-black text-sm hover:bg-slate-800 transition disabled:opacity-50 uppercase tracking-widest"
                     >
                         {isChecking ? 'Checking...' : 'Check Activation Status'}
                     </button>
 
                     <button
                         onClick={() => navigate('/admin-login')}
-                        className="block w-full mt-10 text-[10px] uppercase font-black text-slate-300 hover:text-emerald-500"
+                        className="block w-full mt-10 text-[9px] uppercase font-black text-slate-300 hover:text-indigo-500 transition-colors"
                     >
-                        Admin: Verify Payment
+                        🔐 Admin: Verify Payment
                     </button>
                 </div>
             </div>

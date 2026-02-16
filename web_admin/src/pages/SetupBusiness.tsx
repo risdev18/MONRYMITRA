@@ -8,16 +8,24 @@ import {
 import { useAppStore } from '../store/useAppStore';
 import { BusinessAPI } from '../api';
 
-const businessTypes = [
-    { id: 'GYM', label: 'Gym', icon: Dumbbell, color: 'bg-orange-500' },
-    { id: 'TUITION', label: 'Tuition', icon: GraduationCap, color: 'bg-blue-500' },
-    { id: 'COLLEGE', label: 'College', icon: GraduationCap, color: 'bg-indigo-500' },
-    { id: 'RENT', label: 'Rent', icon: Home, color: 'bg-emerald-500' },
-    { id: 'SOCIETY', label: 'Society', icon: Users, color: 'bg-indigo-500' },
-    { id: 'SHOP', label: 'Retail Shop', icon: ShoppingBag, color: 'bg-rose-500' },
-    { id: 'WORKSHOP', label: 'Workshop', icon: PenTool, color: 'bg-slate-500' },
-    { id: 'SUBSCRIPTION', label: 'Subscription', icon: Calendar, color: 'bg-purple-500' },
-];
+const businessCategories = {
+    "Education": [
+        { id: 'TUITION', label: 'Tuition', icon: GraduationCap, color: 'bg-blue-500' },
+        { id: 'COLLEGE', label: 'College', icon: GraduationCap, color: 'bg-indigo-500' },
+    ],
+    "Fitness": [
+        { id: 'GYM', label: 'Gym', icon: Dumbbell, color: 'bg-orange-500' },
+    ],
+    "Commerce": [
+        { id: 'SHOP', label: 'Retail Shop', icon: ShoppingBag, color: 'bg-rose-500' },
+        { id: 'WORKSHOP', label: 'Workshop', icon: PenTool, color: 'bg-slate-500' },
+    ],
+    "Community": [
+        { id: 'RENT', label: 'Rent', icon: Home, color: 'bg-emerald-500' },
+        { id: 'SOCIETY', label: 'Society', icon: Users, color: 'bg-indigo-500' },
+        { id: 'SUBSCRIPTION', label: 'Subscription', icon: Calendar, color: 'bg-purple-500' },
+    ]
+};
 
 export default function SetupBusinessPage() {
     const navigate = useNavigate();
@@ -102,13 +110,14 @@ export default function SetupBusinessPage() {
                                         <div className="relative">
                                             <Languages className="absolute left-4 top-4 w-5 h-5 text-slate-400" />
                                             <select
-                                                className="w-full pl-12 pr-4 py-4 bg-slate-50 rounded-2xl font-bold text-slate-800 border-none focus:ring-2 focus:ring-emerald-500 appearance-none"
+                                                className="w-full pl-12 pr-4 py-4 bg-white border border-slate-200 rounded-2xl font-bold text-slate-800 focus:ring-2 focus:ring-indigo-600 appearance-none"
                                                 value={formData.language}
                                                 onChange={(e) => setFormData({ ...formData, language: e.target.value })}
                                             >
                                                 <option value="ENGLISH">English</option>
-                                                <option value="HINDI">Hindi</option>
-                                                <option value="MARATHI">Marathi</option>
+                                                <option value="HINDI">Hindi (हिंदी)</option>
+                                                <option value="MARATHI">Marathi (मराठी)</option>
+                                                <option value="GUJARATI">Gujarati (ગુજરાતી)</option>
                                             </select>
                                         </div>
                                     </div>
@@ -125,24 +134,33 @@ export default function SetupBusinessPage() {
                     </div>
                 ) : (
                     <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
-                        <div className="bg-white p-6 rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100">
-                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 ml-1 text-center">Select Business Type</label>
-                            <div className="grid grid-cols-2 gap-4">
-                                {businessTypes.map((type) => {
-                                    const Icon = type.icon;
-                                    return (
-                                        <button
-                                            key={type.id}
-                                            onClick={() => setFormData({ ...formData, businessType: type.id })}
-                                            className={`flex flex-col items-center p-6 rounded-[2rem] border-4 transition-all active:scale-95 ${formData.businessType === type.id ? 'border-emerald-600 bg-emerald-50' : 'border-transparent bg-slate-50 grayscale hover:grayscale-0'}`}
-                                        >
-                                            <div className={`p-4 rounded-2xl ${type.color} text-white mb-3 shadow-lg`}>
-                                                <Icon className="w-8 h-8" />
-                                            </div>
-                                            <span className="font-black text-slate-800 text-sm tracking-tight">{type.label}</span>
-                                        </button>
-                                    );
-                                })}
+                        <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/60 border border-slate-100">
+                            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1 text-center">Select Business Type</label>
+                            <p className="text-center text-xs font-bold text-slate-500 mb-8 italic">Choose your business category to customize features.</p>
+
+                            <div className="space-y-8 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                                {Object.entries(businessCategories).map(([category, types]) => (
+                                    <div key={category}>
+                                        <h3 className="text-[10px] font-black uppercase tracking-widest text-indigo-600 mb-4 ml-2 italic">{category}</h3>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            {types.map((type) => {
+                                                const Icon = type.icon;
+                                                return (
+                                                    <button
+                                                        key={type.id}
+                                                        onClick={() => setFormData({ ...formData, businessType: type.id })}
+                                                        className={`flex flex-col items-center p-6 rounded-[2rem] border-4 transition-all hover:scale-[1.03] hover:shadow-lg active:scale-95 ${formData.businessType === type.id ? 'border-indigo-600 bg-indigo-50/50' : 'border-transparent bg-slate-50 grayscale hover:grayscale-0'}`}
+                                                    >
+                                                        <div className={`p-4 rounded-2xl ${type.color} text-white mb-3 shadow-lg ${formData.businessType === type.id ? 'ring-4 ring-indigo-100' : ''}`}>
+                                                            <Icon className="w-8 h-8" />
+                                                        </div>
+                                                        <span className="font-black text-slate-800 text-sm tracking-tight">{type.label}</span>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
@@ -171,7 +189,7 @@ export default function SetupBusinessPage() {
 function InputField({ label, icon: Icon, placeholder, type = "text", value, onChange }: { label: string, icon: any, placeholder: string, type?: string, value: string, onChange: (v: string) => void }) {
     return (
         <div>
-            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">{label}</label>
+            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-900 mb-2 ml-1">{label}</label>
             <div className="relative">
                 <Icon className="absolute left-6 top-5 w-5 h-5 text-slate-400" />
                 <input
@@ -179,7 +197,7 @@ function InputField({ label, icon: Icon, placeholder, type = "text", value, onCh
                     placeholder={placeholder}
                     value={value}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
-                    className="w-full pl-16 pr-6 py-5 bg-slate-50 rounded-2xl font-bold text-slate-800 placeholder:text-slate-300 border-none focus:ring-2 focus:ring-emerald-500 transition-all text-lg"
+                    className="w-full pl-16 pr-6 py-5 bg-white rounded-2xl font-bold text-slate-900 placeholder:text-slate-300 border border-slate-200 focus:ring-2 focus:ring-indigo-600 transition-all text-lg shadow-sm"
                 />
             </div>
         </div>

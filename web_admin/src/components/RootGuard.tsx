@@ -7,32 +7,42 @@ const RootGuard = ({ children }: { children: React.ReactNode }) => {
     const { business, isConfigured, refreshBusiness } = useAppStore();
 
     useEffect(() => {
-        // 1. Initial configuration check
-        if (!isConfigured || !business) {
-            navigate('/setup');
-            return;
-        }
+        const checkStatus = async () => {
+            // 1. Initial configuration check
+            if (!isConfigured || !business) {
+                navigate('/setup');
+                return;
+            }
 
-        // 2. Refresh business data from localStorage (in case admin activated)
-        refreshBusiness();
+            // 2. If not already active, try refreshing one last time before redirecting
+            let currentBusiness = business;
 
-        // 3. Subscription/Trial check
-        const now = new Date();
-        const trialExpiry = business.trialExpiry ? new Date(business.trialExpiry) : null;
-        const subExpiry = business.subscriptionExpiry ? new Date(business.subscriptionExpiry) : null;
+            const isCurrentlyActive = (b: any) => {
+                const now = new Date();
+                const trialExpiry = b.trialExpiry ? new Date(b.trialExpiry) : null;
+                const subExpiry = b.subscriptionExpiry ? new Date(b.subscriptionExpiry) : null;
 
-        // Note: For existing mock businesses that don't have trialExpiry, 
-        // we'll assume they need setup or have expired if we want to be strict.
-        // But for MVP, if it's missing, we let it slide or set it.
+                if (b.paymentStatus === 'PAID') return true;
+                if (trialExpiry && now < trialExpiry) return true;
+                if (subExpiry && now < subExpiry) return true;
+                return false;
+            };
 
-        let isActive = false;
-        if (business.paymentStatus === 'PAID') isActive = true;
-        if (trialExpiry && now < trialExpiry) isActive = true;
-        if (subExpiry && now < subExpiry) isActive = true;
+            if (!isCurrentlyActive(currentBusiness)) {
+                // Try one refresh
+                await refreshBusiness();
+                // Since refreshBusiness updates the store, the effect will re-run.
+                // However, we can also check the local result if we refactor it to return data.
+                // For now, if it's still not active after the store update (next run), it will redirect.
+            }
 
-        if (!isActive && (trialExpiry || subExpiry)) {
-            navigate('/paywall');
-        }
+            // 3. Final Redirect Logic
+            if (!isCurrentlyActive(currentBusiness) && currentBusiness.paymentStatus !== 'PENDING_APPROVAL') {
+                navigate('/paywall');
+            }
+        };
+
+        checkStatus();
     }, [isConfigured, business, navigate, refreshBusiness]);
 
     return <>{children}</>;
